@@ -1,0 +1,37 @@
+# DCP validation rules
+# Formal playability under declared specification only
+
+rules:
+  - id: assetmap_required
+    name: "ASSETMAP Required"
+    description: "DCP must contain ASSETMAP.xml"
+    severity: error
+  
+  - id: assetmap_valid
+    name: "ASSETMAP Valid"
+    description: "ASSETMAP must be valid XML conforming to schema"
+    severity: error
+  
+  - id: pkl_required
+    name: "PKL Required"
+    description: "DCP must contain at least one PKL"
+    severity: error
+  
+  - id: cpl_required
+    name: "CPL Required"
+    description: "DCP must contain at least one CPL"
+    severity: error
+  
+  - id: xml_well_formed
+    name: "XML Well-Formed"
+    description: "All XML files must be well-formed"
+    severity: error
+  
+  - id: schema_conformant
+    name: "Schema Conformant"
+    description: "XML files must conform to declared schemas"
+    severity: error
+
+# Note: Device playback validation is explicitly excluded
+# This validates structural conformance only
+

@@ -1,0 +1,52 @@
+# Policy rules - law, not preference
+# Configuration cannot override rules.
+
+rules:
+  - id: determinism_required
+    name: "Determinism Mandatory"
+    description: "Same inputs must yield identical outputs"
+    type: execution_check
+    severity: error
+    check: deterministic_execution
+  
+  - id: evidence_required
+    name: "Evidence Required"
+    description: "All transformations must emit evidence"
+    type: evidence_check
+    severity: error
+    check: evidence_present
+  
+  - id: lineage_required
+    name: "Lineage Required"
+    description: "All outputs must trace to ingest"
+    type: lineage_check
+    severity: error
+    check: lineage_complete
+  
+  - id: validation_required
+    name: "Validation Required"
+    description: "Outputs must be formally validated"
+    type: validation_check
+    severity: error
+    check: format_validated
+  
+  - id: immutability_required
+    name: "Immutability Required"
+    description: "Sealed MTB cannot be modified"
+    type: integrity_check
+    severity: error
+    check: mtb_sealed
+  
+  - id: playability_required
+    name: "Formal Playability Required"
+    description: "Output must be structurally valid for declared format"
+    type: validation_check
+    severity: error
+    check: spec_conformant
+
+# Rule enforcement
+enforcement:
+  strict: true
+  on_violation: reject
+  allow_overrides: false
+

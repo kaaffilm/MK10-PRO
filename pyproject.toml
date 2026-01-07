@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mk10-pro"
+version = "1.0.0"
+description = "Deterministic Pre-Delivery Truth Infrastructure"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "pyyaml>=6.0",
+    "click>=8.0",
+    "jsonschema>=4.0",
+    "cryptography>=41.0",
+    "pycryptodome>=3.19.0",
+    "lxml>=4.9.0",
+    "xmlschema>=2.0.0",
+    "python-dateutil>=2.8.0",
+    "pytz>=2023.3",
+]
+
+[project.scripts]
+mk10 = "cli.mk10:main"
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+

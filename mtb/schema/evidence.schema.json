@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Evidence Schema",
+  "description": "Schema for evidence events",
+  "type": "object",
+  "required": ["event_type", "timestamp"],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "execution_start",
+        "node_execution",
+        "execution_complete",
+        "execution_failure",
+        "policy_check",
+        "validation",
+        "state_transition"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "integrity_proof": {
+      "type": "object",
+      "required": ["algorithm", "hash"],
+      "properties": {
+        "algorithm": {"type": "string"},
+        "hash": {"type": "string"}
+      }
+    },
+    "signature": {
+      "type": "object",
+      "properties": {
+        "signature": {"type": "string"},
+        "algorithm": {"type": "string"},
+        "public_key": {"type": "string"}
+      }
+    }
+  }
+}
+

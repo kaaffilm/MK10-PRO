@@ -1,0 +1,36 @@
+# MK10-PRO Configuration
+# Policy is law. Configuration cannot override rules.
+
+version: "1.0.0"
+
+workspace:
+  root: ".workspace"
+  cache: ".cache"
+  evidence: "evidence"
+
+policy:
+  strict: true
+  rules_file: "engine/policy/rules.yaml"
+  states_file: "engine/policy/states.yaml"
+
+engine:
+  deterministic: true
+  max_parallel: 4
+  timeout_seconds: 3600
+
+evidence:
+  hash_algorithm: "sha256"
+  canonical_format: "json"
+  require_signatures: false
+
+mtb:
+  compression: "zip"
+  include_evidence: true
+  seal_algorithm: "sha256"
+
+formats:
+  dcp:
+    enabled: true
+    schema_path: "engine/formats/dcp/schemas"
+    strict_validation: true
+

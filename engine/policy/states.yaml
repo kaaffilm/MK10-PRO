@@ -1,0 +1,59 @@
+# State definitions for promotion model
+# State is evidence. Opinion is irrelevant.
+
+states:
+  - id: DRAFT
+    description: "Execution incomplete"
+    transitions:
+      - to: CANDIDATE
+        requires:
+          - execution_complete
+          - validation_passed
+  
+  - id: CANDIDATE
+    description: "Validation satisfied"
+    transitions:
+      - to: RELEASE
+        requires:
+          - policy_approved
+          - signed_approval
+  
+  - id: RELEASE
+    description: "Policy-approved truth"
+    transitions:
+      - to: ARCHIVED
+        requires:
+          - archive_declaration
+  
+  - id: ARCHIVED
+    description: "Sealed and immutable"
+    transitions: []
+
+# State transition rules
+transition_rules:
+  - name: execution_complete
+    description: "All nodes in DAG executed successfully"
+    type: evidence_check
+    evidence_type: execution_complete
+  
+  - name: validation_passed
+    description: "Format validation passed"
+    type: evidence_check
+    evidence_type: validation
+    condition: passed == true
+  
+  - name: policy_approved
+    description: "All policy rules satisfied"
+    type: evidence_check
+    evidence_type: policy_check
+    condition: all_passed == true
+  
+  - name: signed_approval
+    description: "Approval signature present"
+    type: signature_check
+  
+  - name: archive_declaration
+    description: "Archive intent declared"
+    type: evidence_check
+    evidence_type: archive_declaration
+

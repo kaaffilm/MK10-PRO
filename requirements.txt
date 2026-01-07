@@ -1,0 +1,27 @@
+# Core dependencies
+pyyaml>=6.0
+click>=8.0
+jsonschema>=4.0
+
+# Cryptographic
+cryptography>=41.0
+pycryptodome>=3.19.0
+
+# XML/Validation
+lxml>=4.9.0
+xmlschema>=2.0.0
+
+# Utilities
+python-dateutil>=2.8.0
+pytz>=2023.3
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Development
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.5.0
+isort>=5.12.0
+

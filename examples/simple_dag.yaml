@@ -1,0 +1,29 @@
+# Example DAG definition for MK10-PRO
+# This is a simple passthrough pipeline
+
+id: "simple_pipeline"
+
+nodes:
+  - id: "ingest"
+    type: "passthrough"
+    config: {}
+  
+  - id: "process"
+    type: "passthrough"
+    config: {}
+  
+  - id: "output"
+    type: "passthrough"
+    config: {}
+
+edges:
+  - source: "ingest"
+    target: "process"
+    output_port: "default"
+    input_port: "default"
+  
+  - source: "process"
+    target: "output"
+    output_port: "default"
+    input_port: "default"
+

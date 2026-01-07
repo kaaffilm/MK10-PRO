@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Master Truth Bundle Schema",
+  "description": "Schema for Master Truth Bundle (MTB) - the product of MK10-PRO",
+  "type": "object",
+  "required": [
+    "mtb_version",
+    "title",
+    "version",
+    "state",
+    "ingest_manifest",
+    "lineage_dag",
+    "build_evidence",
+    "policy_evidence",
+    "validation_evidence",
+    "approval_events",
+    "integrity_proof",
+    "archive_declaration"
+  ],
+  "properties": {
+    "mtb_version": {
+      "type": "string",
+      "description": "MTB schema version"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title identifier"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version identifier"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["DRAFT", "CANDIDATE", "RELEASE", "ARCHIVED"],
+      "description": "Current state"
+    },
+    "ingest_manifest": {
+      "type": "object",
+      "description": "All source assets with cryptographic hashes",
+      "required": ["assets", "ingest_timestamp"],
+      "properties": {
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["content_address", "path", "hash", "size"],
+            "properties": {
+              "content_address": {"type": "string"},
+              "path": {"type": "string"},
+              "hash": {"type": "string"},
+              "size": {"type": "integer"},
+              "metadata": {"type": "object"}
+            }
+          }
+        },
+        "ingest_timestamp": {"type": "string"}
+      }
+    },
+    "lineage_dag": {
+      "type": "object",
+      "description": "Full asset provenance graph",
+      "required": ["nodes", "edges", "execution_order"],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {"type": "object"}
+        },
+        "edges": {
+          "type": "array",
+          "items": {"type": "object"}
+        },
+        "execution_order": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "build_evidence": {
+      "type": "object",
+      "description": "Deterministic execution records",
+      "required": ["execution_id", "events"],
+      "properties": {
+        "execution_id": {"type": "string"},
+        "events": {
+          "type": "array",
+          "items": {"type": "object"}
+        }
+      }
+    },
+    "policy_evidence": {
+      "type": "object",
+      "description": "Rules applied and satisfied",
+      "required": ["rule_checks"],
+      "properties": {
+        "rule_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rule_id", "passed"],
+            "properties": {
+              "rule_id": {"type": "string"},
+              "passed": {"type": "boolean"},
+              "details": {"type": "object"}
+            }
+          }
+        }
+      }
+    },
+    "validation_evidence": {
+      "type": "object",
+      "description": "Formal spec conformance results",
+      "required": ["validations"],
+      "properties": {
+        "validations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["format_type", "passed"],
+            "properties": {
+              "format_type": {"type": "string"},
+              "passed": {"type": "boolean"},
+              "details": {"type": "object"}
+            }
+          }
+        }
+      }
+    },
+    "approval_events": {
+      "type": "array",
+      "description": "State transitions with signers",
+      "items": {
+        "type": "object",
+        "required": ["from_state", "to_state", "timestamp"],
+        "properties": {
+          "from_state": {"type": "string"},
+          "to_state": {"type": "string"},
+          "timestamp": {"type": "string"},
+          "signer": {"type": "string"}
+        }
+      }
+    },
+    "integrity_proof": {
+      "type": "object",
+      "description": "Canonical hash sealing the bundle",
+      "required": ["algorithm", "hash"],
+      "properties": {
+        "algorithm": {"type": "string"},
+        "hash": {"type": "string"}
+      }
+    },
+    "archive_declaration": {
+      "type": "object",
+      "description": "Fixity and retention intent",
+      "required": ["declared_at", "intent"],
+      "properties": {
+        "declared_at": {"type": "string"},
+        "intent": {"type": "string"},
+        "retention_policy": {"type": "string"}
+      }
+    }
+  }
+}
+
