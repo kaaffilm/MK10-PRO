@@ -18,6 +18,7 @@ class MTBBuilder:
     Builds Master Truth Bundle.
     
     MTB is the product - a sealed, self-contained, verifiable object.
+    All timestamps must be deterministic from execution context.
     """
     
     def __init__(
@@ -25,13 +26,15 @@ class MTBBuilder:
         title: str,
         version: str,
         state: str = "DRAFT",
+        base_time: Optional[datetime] = None,
     ):
         self.title = title
         self.version = version
         self.state = state
+        self.base_time = base_time  # Deterministic base time from execution context
         self.ingest_manifest: Dict[str, Any] = {
             "assets": [],
-            "ingest_timestamp": to_iso8601(utc_now()),
+            "ingest_timestamp": to_iso8601(base_time) if base_time else to_iso8601(utc_now()),
         }
         self.lineage_dag: Dict[str, Any] = {
             "nodes": [],
@@ -117,12 +120,30 @@ class MTBBuilder:
         from_state: str,
         to_state: str,
         signer: Optional[str] = None,
+        timestamp: Optional[datetime] = None,
     ) -> None:
-        """Add approval/promotion event."""
+        """
+        Add approval/promotion event.
+        
+        Args:
+            from_state: Source state
+            to_state: Target state
+            signer: Optional signer identifier
+            timestamp: Deterministic timestamp (uses base_time + offset if not provided)
+        """
+        # Use provided timestamp, or base_time + event count offset, or fallback to utc_now
+        if timestamp:
+            event_timestamp = timestamp
+        elif self.base_time:
+            from datetime import timedelta
+            event_timestamp = self.base_time + timedelta(seconds=len(self.approval_events))
+        else:
+            event_timestamp = utc_now()  # Fallback for non-execution contexts
+        
         event = {
             "from_state": from_state,
             "to_state": to_state,
-            "timestamp": to_iso8601(utc_now()),
+            "timestamp": to_iso8601(event_timestamp),
             "signer": signer,
         }
         self.approval_events.append(event)
@@ -132,10 +153,26 @@ class MTBBuilder:
         self,
         intent: str,
         retention_policy: Optional[str] = None,
+        timestamp: Optional[datetime] = None,
     ) -> None:
-        """Set archive declaration."""
+        """
+        Set archive declaration.
+        
+        Args:
+            intent: Archive intent
+            retention_policy: Optional retention policy
+            timestamp: Deterministic timestamp (uses base_time if not provided)
+        """
+        # Use provided timestamp, or base_time, or fallback to utc_now
+        if timestamp:
+            declared_at = timestamp
+        elif self.base_time:
+            declared_at = self.base_time
+        else:
+            declared_at = utc_now()  # Fallback for non-execution contexts
+        
         self.archive_declaration = {
-            "declared_at": to_iso8601(utc_now()),
+            "declared_at": to_iso8601(declared_at),
             "intent": intent,
             "retention_policy": retention_policy,
         }
@@ -169,7 +206,7 @@ class MTBBuilder:
             "validation_evidence": self.validation_evidence,
             "approval_events": self.approval_events,
             "archive_declaration": self.archive_declaration or {
-                "declared_at": to_iso8601(utc_now()),
+                "declared_at": to_iso8601(self.base_time) if self.base_time else to_iso8601(utc_now()),
                 "intent": "not_declared",
             },
         }
