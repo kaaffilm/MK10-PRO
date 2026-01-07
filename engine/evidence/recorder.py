@@ -15,17 +15,21 @@ class EvidenceRecorder:
     Records execution evidence.
     
     All evidence is sealed with integrity proofs.
+    Timestamps are deterministic based on execution context.
     """
     
     def __init__(
         self,
         evidence_dir: Path,
         signer: Optional[Signer] = None,
+        base_time: Optional[datetime] = None,
     ):
         self.evidence_dir = Path(evidence_dir)
         self.evidence_dir.mkdir(parents=True, exist_ok=True)
         self.signer = signer
+        self.base_time = base_time  # Deterministic base time from execution context
         self._events: List[Dict[str, Any]] = []
+        self._event_counter = 0  # For deterministic ordering
     
     def record_execution_start(
         self,
@@ -34,12 +38,14 @@ class EvidenceRecorder:
         node_order: List[str],
     ) -> None:
         """Record execution start event."""
+        # Use base_time if provided (deterministic), otherwise fallback to utc_now
+        timestamp = self.base_time if self.base_time else utc_now()
         event = {
             "event_type": "execution_start",
             "execution_id": execution_id,
             "dag_id": dag_id,
             "node_order": node_order,
-            "timestamp": to_iso8601(utc_now()),
+            "timestamp": to_iso8601(timestamp),
         }
         self._record_event(event)
     
@@ -52,6 +58,8 @@ class EvidenceRecorder:
         evidence: Dict[str, Any],
     ) -> None:
         """Record node execution event."""
+        # Deterministic timestamp: base_time + event counter offset
+        timestamp = self._get_deterministic_timestamp()
         event = {
             "event_type": "node_execution",
             "node_id": node_id,
@@ -59,7 +67,7 @@ class EvidenceRecorder:
             "inputs": inputs,
             "output": output,
             "evidence": evidence,
-            "timestamp": to_iso8601(utc_now()),
+            "timestamp": to_iso8601(timestamp),
         }
         self._record_event(event)
     
@@ -69,11 +77,12 @@ class EvidenceRecorder:
         outputs: Dict[str, str],
     ) -> None:
         """Record execution completion event."""
+        timestamp = self._get_deterministic_timestamp()
         event = {
             "event_type": "execution_complete",
             "execution_id": execution_id,
             "outputs": outputs,
-            "timestamp": to_iso8601(utc_now()),
+            "timestamp": to_iso8601(timestamp),
         }
         self._record_event(event)
     
@@ -83,11 +92,12 @@ class EvidenceRecorder:
         error: str,
     ) -> None:
         """Record execution failure event."""
+        timestamp = self._get_deterministic_timestamp()
         event = {
             "event_type": "execution_failure",
             "execution_id": execution_id,
             "error": error,
-            "timestamp": to_iso8601(utc_now()),
+            "timestamp": to_iso8601(timestamp),
         }
         self._record_event(event)
     
@@ -98,12 +108,13 @@ class EvidenceRecorder:
         details: Dict[str, Any],
     ) -> None:
         """Record policy rule check."""
+        timestamp = self._get_deterministic_timestamp()
         event = {
             "event_type": "policy_check",
             "rule_id": rule_id,
             "passed": passed,
             "details": details,
-            "timestamp": to_iso8601(utc_now()),
+            "timestamp": to_iso8601(timestamp),
         }
         self._record_event(event)
     
@@ -114,12 +125,13 @@ class EvidenceRecorder:
         details: Dict[str, Any],
     ) -> None:
         """Record format validation."""
+        timestamp = self._get_deterministic_timestamp()
         event = {
             "event_type": "validation",
             "format_type": format_type,
             "passed": passed,
             "details": details,
-            "timestamp": to_iso8601(utc_now()),
+            "timestamp": to_iso8601(timestamp),
         }
         self._record_event(event)
     
@@ -132,6 +144,7 @@ class EvidenceRecorder:
         signer: Optional[str] = None,
     ) -> None:
         """Record state transition (promotion)."""
+        timestamp = self._get_deterministic_timestamp()
         event = {
             "event_type": "state_transition",
             "title": title,
@@ -139,9 +152,22 @@ class EvidenceRecorder:
             "from_state": from_state,
             "to_state": to_state,
             "signer": signer,
-            "timestamp": to_iso8601(utc_now()),
+            "timestamp": to_iso8601(timestamp),
         }
         self._record_event(event)
+    
+    def _get_deterministic_timestamp(self) -> datetime:
+        """
+        Get deterministic timestamp.
+        
+        Uses base_time from execution context if available,
+        otherwise falls back to utc_now (for non-execution contexts).
+        """
+        if self.base_time:
+            # Deterministic: base_time + event counter offset
+            from datetime import timedelta
+            return self.base_time + timedelta(seconds=self._event_counter)
+        return utc_now()
     
     def _record_event(self, event: Dict[str, Any]) -> None:
         """Record event with sealing."""
@@ -155,9 +181,10 @@ class EvidenceRecorder:
             sealed["signature"] = signature
         
         self._events.append(sealed)
+        self._event_counter += 1
         
-        # Write to file
-        event_file = self.evidence_dir / f"event_{len(self._events):06d}.json"
+        # Write to file with deterministic naming
+        event_file = self.evidence_dir / f"event_{self._event_counter:06d}.json"
         save_json(str(event_file), sealed, canonical=False)
     
     def get_all_events(self) -> List[Dict[str, Any]]:

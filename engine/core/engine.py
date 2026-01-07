@@ -23,7 +23,11 @@ class Engine:
     
     def __init__(self, context: ExecutionContext):
         self.context = context
-        self.recorder = EvidenceRecorder(context.evidence_dir)
+        # Pass execution context's started_at for deterministic timestamps
+        self.recorder = EvidenceRecorder(
+            context.evidence_dir,
+            base_time=context.started_at,
+        )
         self._outputs: Dict[str, NodeOutput] = {}
         self._execution_order: List[str] = []
     

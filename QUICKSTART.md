@@ -121,9 +121,9 @@ pytest --cov=engine --cov=mtb tests/
 
 Edit `mk10.config.yaml` to customize:
 - Workspace paths
-- Policy rules
+- Policy rule file locations (rules themselves cannot be overridden)
 - Evidence settings
 - Format validation
 
-**Note:** Policy rules cannot be overridden. Policy is law.
+**Note:** Policy rules cannot be overridden. Policy is law. Configuration only specifies where to find policy files, not what the rules are.
 

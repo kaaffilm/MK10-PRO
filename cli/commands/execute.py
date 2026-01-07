@@ -3,7 +3,7 @@
 import click
 from pathlib import Path
 import yaml
-import uuid
+import hashlib
 
 from engine.core.engine import Engine
 from engine.core.dag import DAG, DAGEdge
@@ -61,8 +61,13 @@ def execute(dag: str, workspace: str, config: str):
         )
         dag_obj.add_edge(edge)
     
-    # Create execution context
-    execution_id = str(uuid.uuid4())
+    # Create execution context with deterministic execution ID
+    # Execution ID is hash of DAG content + workspace path for determinism
+    dag_content = dag_path.read_bytes()
+    workspace_str = str(workspace_path.resolve())
+    execution_input = dag_content + workspace_str.encode('utf-8')
+    execution_id = hashlib.sha256(execution_input).hexdigest()[:16]
+    
     context = ExecutionContext(
         workspace=workspace_path,
         cache_dir=cache_dir,
