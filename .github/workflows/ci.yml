@@ -116,3 +116,4 @@ jobs:
           fi
           
           echo "PASS: PyPI publishing disabled"
+# Trigger CI rebuild
