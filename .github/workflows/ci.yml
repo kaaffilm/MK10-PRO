@@ -96,24 +96,7 @@ jobs:
           pip install -e .
 
       - name: Test MTB hash determinism
-        run: |
-          python -c "
-import json
-import hashlib
-
-def compute_hash(data):
-    return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
-
-# Test order independence
-mtb1 = {'files': ['a', 'b', 'c'], 'version': '1.0'}
-mtb2 = {'version': '1.0', 'files': ['a', 'b', 'c']}
-
-h1 = compute_hash(mtb1)
-h2 = compute_hash(mtb2)
-
-assert h1 == h2, f'Hash mismatch: {h1} != {h2}'
-print('PASS: MTB hash is deterministic')
-"
+        run: python3 -c "import json,hashlib;h=lambda d:hashlib.sha256(json.dumps(d,sort_keys=True).encode()).hexdigest();m1={'files':['a','b','c'],'version':'1.0'};m2={'version':'1.0','files':['a','b','c']};assert h(m1)==h(m2),'Hash mismatch';print('PASS: MTB hash is deterministic')"
 
   pypi-disabled:
     runs-on: ubuntu-latest
