@@ -8,11 +8,11 @@ on:
       publish_to:
         description: 'Publish to TestPyPI or PyPI'
         required: true
-        default: 'testpypi'
+        default: 'pypi'
         type: choice
         options:
-          - testpypi
           - pypi
+          - testpypi
 
 permissions:
   contents: read
