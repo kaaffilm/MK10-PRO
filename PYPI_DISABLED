@@ -1,10 +1,11 @@
 Publishing disabled. Maintenance-only mode.
 
 Disabled: 2026-01-24
-Reason: System sealed. No further releases.
+Reason: No further PyPI publishing. Repo may receive maintenance commits under signed governance.
 
 To re-enable:
 1. Remove this file
 2. Restore .github/workflows/publish.yml
 3. Reconfigure PyPI trusted publisher
 4. Create new sealed tag
+5. Update governance snapshots
