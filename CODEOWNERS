@@ -2,3 +2,9 @@
 # All changes require approval from the authoritative owner.
 
 * @kaaffilm
+
+# Protected paths (require explicit approval)
+/mtb/schema/ @kaaffilm
+/.schema_checksum @kaaffilm
+/engine/ @kaaffilm
+/verifier/ @kaaffilm
