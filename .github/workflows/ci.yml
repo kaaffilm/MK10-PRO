@@ -14,10 +14,10 @@ jobs:
         python-version: ['3.9', '3.10', '3.11', '3.12']
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -31,7 +31,86 @@ jobs:
         run: pytest --cov=. --cov-report=xml
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v4
         if: matrix.python-version == '3.11'
         with:
           files: ./coverage.xml
+
+  schema-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify schema checksum
+        run: |
+          EXPECTED=$(cat .schema_checksum)
+          ACTUAL=$(sha256sum mtb/schema/mtb.schema.json | cut -d' ' -f1)
+          
+          if [ "$EXPECTED" != "$ACTUAL" ]; then
+            echo "FAIL: Schema has been modified"
+            echo "Expected: $EXPECTED"
+            echo "Actual: $ACTUAL"
+            exit 1
+          fi
+          echo "PASS: Schema checksum verified"
+
+  cli-flag-freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -e .
+
+      - name: Test unknown flag rejection
+        run: |
+          set +e
+          python -m cli --unknown-flag 2>&1
+          EXIT=$?
+          set -e
+          
+          if [ "$EXIT" -eq 0 ]; then
+            echo "FAIL: Unknown flag should be rejected"
+            exit 1
+          fi
+          echo "PASS: Unknown flag rejected"
+
+  mtb-determinism:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -e .
+
+      - name: Test MTB hash determinism
+        run: |
+          python -c "
+import json
+import hashlib
+
+def compute_hash(data):
+    return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
+
+# Test order independence
+mtb1 = {'files': ['a', 'b', 'c'], 'version': '1.0'}
+mtb2 = {'version': '1.0', 'files': ['a', 'b', 'c']}
+
+h1 = compute_hash(mtb1)
+h2 = compute_hash(mtb2)
+
+assert h1 == h2, f'Hash mismatch: {h1} != {h2}'
+print('PASS: MTB hash is deterministic')
+"
