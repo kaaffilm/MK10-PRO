@@ -43,6 +43,13 @@ rules:
     type: validation_check
     severity: error
     check: spec_conformant
+  
+  - id: root_ingest_binding_required
+    name: "Root Ingest Binding Required"
+    description: "All root DAG nodes must have ingest-bound inputs"
+    type: lineage_check
+    severity: error
+    check: root_ingest_binding
 
 # Rule enforcement
 enforcement:

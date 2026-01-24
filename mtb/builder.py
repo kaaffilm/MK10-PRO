@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Master Truth Bundle builder."""
 
 from pathlib import Path
@@ -91,12 +92,23 @@ class MTBBuilder:
         self,
         rule_id: str,
         passed: bool,
+        reason_code: Optional[str] = None,
         details: Optional[Dict[str, Any]] = None,
     ) -> None:
-        """Add policy rule check result."""
+        """
+        Add policy rule check result.
+        
+        Policy evidence must be sealed into MTB.
+        Each check includes:
+        - rule_id: Rule identifier
+        - passed: Binary result (True/False)
+        - reason_code: Failure reason if passed=False
+        - details: Additional check details
+        """
         check = {
             "rule_id": rule_id,
             "passed": passed,
+            "reason_code": reason_code,
             "details": details or {},
         }
         self.policy_evidence["rule_checks"].append(check)
@@ -194,6 +206,16 @@ class MTBBuilder:
         if not self.build_evidence["execution_id"]:
             raise MTBError("Build evidence must have execution_id")
         
+        # Build non_claims section (required to prevent scope creep)
+        non_claims = {
+            "cross_platform_determinism": False,
+            "hardware_equivalence": False,
+            "library_equivalence": False,
+            "cpu_feature_equivalence": False,
+            "simd_equivalence": False,
+            "external_dependency_equivalence": False,
+        }
+        
         mtb = {
             "mtb_version": "1.0",
             "title": self.title,
@@ -209,6 +231,7 @@ class MTBBuilder:
                 "declared_at": to_iso8601(self.base_time) if self.base_time else to_iso8601(utc_now()),
                 "intent": "not_declared",
             },
+            "non_claims": non_claims,
         }
         
         return mtb

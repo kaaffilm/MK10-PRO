@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Pure transformation nodes."""
 
 from abc import ABC, abstractmethod

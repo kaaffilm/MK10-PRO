@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Evidence Schema",
-  "description": "Schema for evidence events",
+  "description": "Schema for evidence events. Evidence must be the product, not a derived artifact.",
   "type": "object",
   "required": ["event_type", "timestamp"],
   "properties": {
@@ -21,6 +21,22 @@
       "type": "string",
       "format": "date-time"
     },
+    "rule_id": {
+      "type": "string",
+      "description": "Policy rule identifier (required for policy_check events)"
+    },
+    "passed": {
+      "type": "boolean",
+      "description": "Policy check result (required for policy_check events)"
+    },
+    "reason_code": {
+      "type": "string",
+      "description": "Failure reason code (required for policy_check events when passed=false)"
+    },
+    "details": {
+      "type": "object",
+      "description": "Additional check details (for policy_check events)"
+    },
     "integrity_proof": {
       "type": "object",
       "required": ["algorithm", "hash"],
@@ -37,6 +53,30 @@
         "public_key": {"type": "string"}
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "policy_check"
+          }
+        }
+      },
+      "then": {
+        "required": ["rule_id", "passed"],
+        "if": {
+          "properties": {
+            "passed": {
+              "const": false
+            }
+          }
+        },
+        "then": {
+          "required": ["reason_code"]
+        }
+      }
+    }
+  ]
 }
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Directed Acyclic Graph definition and ordering."""
 
 from dataclasses import dataclass

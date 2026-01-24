@@ -1,0 +1,45 @@
+{
+  "manifest_version": "1.0.0",
+  "ingest_timestamp": "2024-01-15T10:30:00Z",
+  "assets": [
+    {
+      "asset_id": "source_video_001",
+      "content_hash": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+      "hash_algorithm": "sha256",
+      "role": "source_video",
+      "metadata": {
+        "size": 1048576000,
+        "mime_type": "video/mp4",
+        "format": "MP4",
+        "duration_seconds": 3600,
+        "resolution": "3840x2160"
+      }
+    },
+    {
+      "asset_id": "source_audio_001",
+      "content_hash": "f1e2d3c4b5a6978012345678901234567890abcdef1234567890abcdef123456",
+      "hash_algorithm": "sha256",
+      "role": "source_audio",
+      "metadata": {
+        "size": 52428800,
+        "mime_type": "audio/wav",
+        "format": "WAV",
+        "sample_rate": 48000,
+        "channels": 8
+      }
+    },
+    {
+      "asset_id": "subtitle_001",
+      "content_hash": "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+      "hash_algorithm": "sha256",
+      "role": "subtitle_track",
+      "metadata": {
+        "size": 102400,
+        "mime_type": "text/srt",
+        "format": "SRT",
+        "language": "en"
+      }
+    }
+  ]
+}
+

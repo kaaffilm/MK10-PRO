@@ -1,0 +1,489 @@
+# MK10-PRO Policy Pack
+# Policy is law. Configuration cannot override.
+# Policies operate only on evidence, never on intent.
+
+# ============================================================================
+# POLICY PURPOSE
+# ============================================================================
+
+purpose: |
+  The MK10-PRO Policy Pack enforces deterministic pre-delivery truth infrastructure.
+  
+  This policy pack ensures:
+  - All claims are provable through evidence
+  - All transformations are deterministic and verifiable
+  - All outputs are formally validated
+  - All state transitions are evidence-gated
+  - No file falls again (location, verification, explanation, reproduction, playability, re-delivery)
+  
+  Policy operates exclusively on evidence. Opinion, intent, and configuration are irrelevant.
+
+# ============================================================================
+# REQUIRED ARTIFACTS
+# ============================================================================
+
+required_artifacts:
+  # Execution artifacts
+  - artifact: execution_start_event
+    type: evidence
+    event_type: execution_start
+    required_fields:
+      - execution_id
+      - dag_id
+      - node_order
+      - timestamp
+      - integrity_proof
+    
+  - artifact: node_execution_events
+    type: evidence
+    event_type: node_execution
+    required_fields:
+      - node_id
+      - node_type
+      - inputs
+      - output
+      - evidence
+      - timestamp
+      - integrity_proof
+    requirement: "One event per executed node"
+    
+  - artifact: execution_complete_event
+    type: evidence
+    event_type: execution_complete
+    required_fields:
+      - execution_id
+      - outputs
+      - timestamp
+      - integrity_proof
+    requirement: "Exactly one event per execution"
+    
+  # Validation artifacts
+  - artifact: format_validation_evidence
+    type: evidence
+    event_type: validation
+    required_fields:
+      - format_type
+      - passed
+      - details
+      - timestamp
+      - integrity_proof
+    requirement: "At least one validation per declared output format"
+    
+  # Policy artifacts
+  - artifact: policy_check_evidence
+    type: evidence
+    event_type: policy_check
+    required_fields:
+      - rule_id
+      - passed
+      - details
+      - timestamp
+      - integrity_proof
+    requirement: "One check per policy rule"
+    
+  # MTB artifacts
+  - artifact: ingest_manifest
+    type: mtb_section
+    required_fields:
+      - assets
+      - ingest_timestamp
+    requirement: "At least one asset"
+    
+  - artifact: lineage_dag
+    type: mtb_section
+    required_fields:
+      - nodes
+      - edges
+      - execution_order
+    requirement: "Complete provenance graph"
+    
+  - artifact: build_evidence
+    type: mtb_section
+    required_fields:
+      - execution_id
+      - events
+    requirement: "All execution events"
+    
+  - artifact: policy_evidence
+    type: mtb_section
+    required_fields:
+      - rule_checks
+    requirement: "All policy rule checks"
+    
+  - artifact: validation_evidence
+    type: mtb_section
+    required_fields:
+      - validations
+    requirement: "All format validations"
+    
+  - artifact: integrity_proof
+    type: mtb_section
+    required_fields:
+      - algorithm
+      - hash
+    requirement: "Canonical hash of MTB"
+
+# ============================================================================
+# MANDATORY VALIDATIONS
+# ============================================================================
+
+mandatory_validations:
+  # Determinism validation
+  - id: determinism_validation
+    name: "Determinism Validation"
+    type: execution_check
+    requirement: |
+      Execution must be deterministic. Same inputs + same engine + same policy = same outputs.
+    evidence_required:
+      - execution_complete_event
+      - node_execution_events (all)
+    validation_logic: |
+      1. All node outputs must have content addresses
+      2. Content addresses must be deterministic (hash-based)
+      3. Re-execution with same inputs must produce identical content addresses
+    threshold: "100% of nodes must produce deterministic outputs"
+    refusal_condition: "Any node output is non-deterministic"
+    
+  # Evidence completeness validation
+  - id: evidence_completeness_validation
+    name: "Evidence Completeness"
+    type: evidence_check
+    requirement: |
+      All transformations must emit sealed evidence.
+    evidence_required:
+      - execution_start_event
+      - node_execution_events (all)
+      - execution_complete_event
+    validation_logic: |
+      1. Every node execution must have corresponding evidence event
+      2. Every evidence event must have integrity_proof
+      3. Evidence must be canonical and verifiable
+    threshold: "100% of node executions must have evidence"
+    refusal_condition: "Any node execution lacks evidence or integrity_proof"
+    
+  # Lineage completeness validation
+  - id: lineage_completeness_validation
+    name: "Lineage Completeness"
+    type: lineage_check
+    requirement: |
+      All outputs must trace to ingest via verifiable DAG.
+    evidence_required:
+      - ingest_manifest
+      - lineage_dag
+      - node_execution_events (all)
+    validation_logic: |
+      1. All outputs must have content addresses
+      2. All content addresses must trace to ingest assets or node outputs
+      3. Lineage DAG must be acyclic and complete
+      4. No orphan outputs
+    threshold: "100% of outputs must have complete lineage"
+    refusal_condition: "Any output cannot be traced to ingest"
+    
+  # Format validation
+  - id: format_validation
+    name: "Format Structural Validation"
+    type: validation_check
+    requirement: |
+      All outputs must be formally validated for declared format.
+    evidence_required:
+      - format_validation_evidence (all)
+    validation_logic: |
+      1. Every declared output format must have validation evidence
+      2. All validations must pass (passed == true)
+      3. Validation must be structural/spec conformance only
+      4. No device playback validation (out of scope)
+    threshold: "100% of declared formats must pass validation"
+    refusal_condition: "Any format validation fails or is missing"
+    
+  # Integrity validation
+  - id: integrity_validation
+    name: "Integrity Validation"
+    type: integrity_check
+    requirement: |
+      MTB must be sealed with verifiable integrity proof.
+    evidence_required:
+      - integrity_proof
+    validation_logic: |
+      1. MTB must have integrity_proof section
+      2. Integrity proof must be canonical hash of MTB (without proof)
+      3. Hash algorithm must be declared and supported
+      4. Hash verification must pass
+    threshold: "Integrity proof must be valid"
+    refusal_condition: "Integrity proof missing, invalid, or verification fails"
+    
+  # Policy compliance validation
+  - id: policy_compliance_validation
+    name: "Policy Compliance"
+    type: policy_check
+    requirement: |
+      All policy rules must be satisfied.
+    evidence_required:
+      - policy_check_evidence (all)
+    validation_logic: |
+      1. Every policy rule must have check evidence
+      2. All rule checks must pass (passed == true)
+      3. No rule violations allowed
+    threshold: "100% of policy rules must pass"
+    refusal_condition: "Any policy rule fails"
+
+# ============================================================================
+# THRESHOLDS
+# ============================================================================
+
+thresholds:
+  # Execution thresholds
+  execution:
+    node_execution_evidence_ratio: 1.0
+    description: "100% of nodes must have execution evidence"
+    refusal_if_below: true
+    
+    execution_complete_required: true
+    description: "Execution must complete successfully"
+    refusal_if_missing: true
+    
+    deterministic_outputs_ratio: 1.0
+    description: "100% of outputs must be deterministic"
+    refusal_if_below: true
+    
+  # Evidence thresholds
+  evidence:
+    integrity_proof_coverage: 1.0
+    description: "100% of evidence events must have integrity_proof"
+    refusal_if_below: true
+    
+    canonical_format_required: true
+    description: "All evidence must be canonical JSON"
+    refusal_if_invalid: true
+    
+  # Validation thresholds
+  validation:
+    format_validation_pass_rate: 1.0
+    description: "100% of format validations must pass"
+    refusal_if_below: true
+    
+    declared_format_coverage: 1.0
+    description: "100% of declared formats must have validation"
+    refusal_if_below: true
+    
+  # Lineage thresholds
+  lineage:
+    output_lineage_completeness: 1.0
+    description: "100% of outputs must have complete lineage to ingest"
+    refusal_if_below: true
+    
+    dag_acyclicity_required: true
+    description: "Lineage DAG must be acyclic"
+    refusal_if_cyclic: true
+    
+  # Policy thresholds
+  policy:
+    rule_check_pass_rate: 1.0
+    description: "100% of policy rules must pass"
+    refusal_if_below: true
+    
+    rule_check_coverage: 1.0
+    description: "100% of policy rules must have check evidence"
+    refusal_if_below: true
+    
+  # Integrity thresholds
+  integrity:
+    mtb_seal_required: true
+    description: "MTB must be sealed with integrity proof"
+    refusal_if_missing: true
+    
+    seal_verification_required: true
+    description: "MTB seal must verify successfully"
+    refusal_if_invalid: true
+
+# ============================================================================
+# PROMOTION PERMISSIONS
+# ============================================================================
+
+promotion_permissions:
+  # DRAFT -> CANDIDATE
+  - from_state: DRAFT
+    to_state: CANDIDATE
+    required_evidence:
+      - execution_complete_event
+      - format_validation_evidence (all declared formats)
+      - policy_check_evidence (all rules)
+    required_validations:
+      - determinism_validation: pass
+      - evidence_completeness_validation: pass
+      - format_validation: pass
+      - policy_compliance_validation: pass
+    required_thresholds:
+      - execution.node_execution_evidence_ratio: 1.0
+      - execution.deterministic_outputs_ratio: 1.0
+      - validation.format_validation_pass_rate: 1.0
+      - policy.rule_check_pass_rate: 1.0
+    refusal_conditions:
+      - "Execution incomplete or failed"
+      - "Any format validation fails"
+      - "Any policy rule fails"
+      - "Evidence incomplete"
+      - "Non-deterministic outputs"
+    
+  # CANDIDATE -> RELEASE
+  - from_state: CANDIDATE
+    to_state: RELEASE
+    required_evidence:
+      - policy_check_evidence (all rules passed)
+      - state_transition_event (with signature)
+    required_validations:
+      - policy_compliance_validation: pass
+      - integrity_validation: pass
+    required_thresholds:
+      - policy.rule_check_pass_rate: 1.0
+      - integrity.mtb_seal_required: true
+      - integrity.seal_verification_required: true
+    required_signatures:
+      - approval_signature: required
+        description: "State transition must be signed"
+    refusal_conditions:
+      - "Any policy rule fails"
+      - "MTB not sealed"
+      - "Seal verification fails"
+      - "Approval signature missing or invalid"
+    
+  # RELEASE -> ARCHIVED
+  - from_state: RELEASE
+    to_state: ARCHIVED
+    required_evidence:
+      - archive_declaration_event
+    required_validations:
+      - integrity_validation: pass
+    required_thresholds:
+      - integrity.mtb_seal_required: true
+      - integrity.seal_verification_required: true
+    refusal_conditions:
+      - "Archive declaration missing"
+      - "MTB seal invalid"
+    
+  # ARCHIVED
+  - from_state: ARCHIVED
+    to_state: null
+    description: "ARCHIVED is terminal state. No transitions allowed."
+    refusal_conditions:
+      - "Any transition from ARCHIVED is refused"
+
+# ============================================================================
+# EXPLICIT REFUSAL CONDITIONS
+# ============================================================================
+
+explicit_refusal_conditions:
+  # Determinism violations
+  - condition: "Non-deterministic execution"
+    evidence_check: "Any node output is non-deterministic"
+    refusal_reason: "Violates determinism axiom"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  - condition: "Missing execution evidence"
+    evidence_check: "Any node execution lacks evidence event"
+    refusal_reason: "Violates evidence requirement"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  - condition: "Incomplete lineage"
+    evidence_check: "Any output cannot be traced to ingest"
+    refusal_reason: "Violates lineage requirement"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  # Validation failures
+  - condition: "Format validation failure"
+    evidence_check: "Any format validation has passed == false"
+    refusal_reason: "Output not formally playable"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  - condition: "Missing format validation"
+    evidence_check: "Declared format lacks validation evidence"
+    refusal_reason: "Format not validated"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  # Policy violations
+  - condition: "Policy rule failure"
+    evidence_check: "Any policy_check has passed == false"
+    refusal_reason: "Policy rule violated"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  - condition: "Missing policy check"
+    evidence_check: "Any policy rule lacks check evidence"
+    refusal_reason: "Policy compliance unverified"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  # Integrity violations
+  - condition: "Missing integrity proof"
+    evidence_check: "MTB lacks integrity_proof section"
+    refusal_reason: "MTB not sealed"
+    state_blocked: ["RELEASE", "ARCHIVED"]
+    
+  - condition: "Invalid integrity proof"
+    evidence_check: "Integrity proof verification fails"
+    refusal_reason: "MTB integrity compromised"
+    state_blocked: ["RELEASE", "ARCHIVED"]
+    
+  # Evidence violations
+  - condition: "Missing integrity_proof on evidence"
+    evidence_check: "Any evidence event lacks integrity_proof"
+    refusal_reason: "Evidence not sealed"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  - condition: "Non-canonical evidence"
+    evidence_check: "Evidence not in canonical JSON format"
+    refusal_reason: "Evidence not verifiable"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  # State transition violations
+  - condition: "Invalid state transition"
+    evidence_check: "State transition not allowed by policy"
+    refusal_reason: "Transition requirements not met"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  - condition: "Missing approval signature"
+    evidence_check: "CANDIDATE -> RELEASE transition lacks signature"
+    refusal_reason: "Approval not authorized"
+    state_blocked: ["RELEASE", "ARCHIVED"]
+    
+  - condition: "Invalid approval signature"
+    evidence_check: "Approval signature verification fails"
+    refusal_reason: "Approval not authentic"
+    state_blocked: ["RELEASE", "ARCHIVED"]
+    
+  # Lineage violations
+  - condition: "Cyclic lineage DAG"
+    evidence_check: "Lineage DAG contains cycles"
+    refusal_reason: "Lineage graph invalid"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  - condition: "Orphan outputs"
+    evidence_check: "Outputs exist without lineage to ingest"
+    refusal_reason: "Provenance incomplete"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  # Execution violations
+  - condition: "Execution incomplete"
+    evidence_check: "execution_complete event missing or execution_failure present"
+    refusal_reason: "Execution did not complete successfully"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+    
+  - condition: "Execution failure"
+    evidence_check: "execution_failure event present"
+    refusal_reason: "Execution failed"
+    state_blocked: ["CANDIDATE", "RELEASE", "ARCHIVED"]
+
+# ============================================================================
+# ENFORCEMENT
+# ============================================================================
+
+enforcement:
+  strict: true
+  on_violation: reject
+  allow_overrides: false
+  allow_warnings: false
+  allow_partial: false
+  
+  # Policy is law. No exceptions.
+  note: |
+    All policy rules are mandatory. All thresholds are absolute.
+    No configuration can override policy. No warnings substitute for failures.
+    Evidence is the only source of truth. Opinion is irrelevant.
+

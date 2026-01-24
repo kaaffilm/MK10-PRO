@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """MTB verification."""
 
 from pathlib import Path

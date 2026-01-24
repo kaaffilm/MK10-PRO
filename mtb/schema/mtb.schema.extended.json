@@ -1,0 +1,267 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Master Truth Bundle Schema (Extended)",
+  "description": "Extended schema for Master Truth Bundle (MTB) - the product of MK10-PRO. This schema extends the base schema with optional reproducibility and verification metadata fields.",
+  "type": "object",
+  "required": [
+    "mtb_version",
+    "title",
+    "version",
+    "state",
+    "ingest_manifest",
+    "lineage_dag",
+    "build_evidence",
+    "policy_evidence",
+    "validation_evidence",
+    "approval_events",
+    "integrity_proof",
+    "archive_declaration"
+  ],
+  "properties": {
+    "mtb_version": {
+      "type": "string",
+      "description": "MTB schema version"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title identifier"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version identifier"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["DRAFT", "CANDIDATE", "RELEASE", "ARCHIVED"],
+      "description": "Current state"
+    },
+    "ingest_manifest": {
+      "type": "object",
+      "description": "All source assets with cryptographic hashes",
+      "required": ["assets", "ingest_timestamp"],
+      "properties": {
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["content_address", "path", "hash", "size"],
+            "properties": {
+              "content_address": {"type": "string"},
+              "path": {"type": "string"},
+              "hash": {"type": "string"},
+              "size": {"type": "integer"},
+              "metadata": {"type": "object"}
+            }
+          }
+        },
+        "ingest_timestamp": {"type": "string"}
+      }
+    },
+    "lineage_dag": {
+      "type": "object",
+      "description": "Full asset provenance graph",
+      "required": ["nodes", "edges", "execution_order"],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {"type": "object"}
+        },
+        "edges": {
+          "type": "array",
+          "items": {"type": "object"}
+        },
+        "execution_order": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "build_evidence": {
+      "type": "object",
+      "description": "Deterministic execution records",
+      "required": ["execution_id", "events"],
+      "properties": {
+        "execution_id": {"type": "string"},
+        "events": {
+          "type": "array",
+          "items": {"type": "object"}
+        }
+      }
+    },
+    "policy_evidence": {
+      "type": "object",
+      "description": "Rules applied and satisfied",
+      "required": ["rule_checks"],
+      "properties": {
+        "rule_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rule_id", "passed"],
+            "properties": {
+              "rule_id": {"type": "string"},
+              "passed": {"type": "boolean"},
+              "details": {"type": "object"}
+            }
+          }
+        }
+      }
+    },
+    "validation_evidence": {
+      "type": "object",
+      "description": "Formal spec conformance results",
+      "required": ["validations"],
+      "properties": {
+        "validations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["format_type", "passed"],
+            "properties": {
+              "format_type": {"type": "string"},
+              "passed": {"type": "boolean"},
+              "details": {"type": "object"}
+            }
+          }
+        }
+      }
+    },
+    "approval_events": {
+      "type": "array",
+      "description": "State transitions with signers",
+      "items": {
+        "type": "object",
+        "required": ["from_state", "to_state", "timestamp"],
+        "properties": {
+          "from_state": {"type": "string"},
+          "to_state": {"type": "string"},
+          "timestamp": {"type": "string"},
+          "signer": {"type": "string"}
+        }
+      }
+    },
+    "integrity_proof": {
+      "type": "object",
+      "description": "Canonical hash sealing the bundle",
+      "required": ["algorithm", "hash"],
+      "properties": {
+        "algorithm": {"type": "string"},
+        "hash": {"type": "string"}
+      }
+    },
+    "archive_declaration": {
+      "type": "object",
+      "description": "Fixity and retention intent",
+      "required": ["declared_at", "intent"],
+      "properties": {
+        "declared_at": {"type": "string"},
+        "intent": {"type": "string"},
+        "retention_policy": {"type": "string"}
+      }
+    },
+    "reproducibility_manifest": {
+      "type": "object",
+      "description": "Deterministic evidence of reproducibility. Optional field that provides version information and hashes of all deterministic inputs.",
+      "properties": {
+        "engine_version": {
+          "type": "string",
+          "description": "MK10-PRO engine version used for execution"
+        },
+        "policy_version": {
+          "type": "string",
+          "description": "Policy pack version used"
+        },
+        "schema_version": {
+          "type": "string",
+          "description": "MTB schema version (matches mtb_version)"
+        },
+        "deterministic_inputs": {
+          "type": "object",
+          "description": "Hashes of all inputs that affect determinism",
+          "properties": {
+            "dag_content_hash": {
+              "type": "string",
+              "description": "Hash of DAG definition content"
+            },
+            "config_hash": {
+              "type": "string",
+              "description": "Hash of execution configuration"
+            },
+            "policy_rules_hash": {
+              "type": "string",
+              "description": "Hash of policy rules applied"
+            }
+          }
+        },
+        "reproducibility_proof": {
+          "type": "object",
+          "description": "Combined hash of all deterministic inputs",
+          "properties": {
+            "algorithm": {
+              "type": "string",
+              "description": "Hash algorithm used",
+              "default": "sha256"
+            },
+            "hash": {
+              "type": "string",
+              "description": "Hash of all deterministic inputs combined"
+            }
+          }
+        }
+      }
+    },
+    "verification_metadata": {
+      "type": "object",
+      "description": "Verification history and context. Optional field that records verification events without affecting MTB content. This is verification evidence, not MTB content.",
+      "properties": {
+        "verification_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When verification occurred"
+        },
+        "verification_context": {
+          "type": "object",
+          "description": "Context of verification",
+          "properties": {
+            "verifier_version": {
+              "type": "string",
+              "description": "Verifier version used"
+            },
+            "verification_method": {
+              "type": "string",
+              "enum": ["standalone", "engine", "hostile"],
+              "description": "Method of verification"
+            },
+            "verification_environment": {
+              "type": "object",
+              "description": "Environment information (optional)",
+              "properties": {
+                "os": {"type": "string"},
+                "python_version": {"type": "string"}
+              }
+            }
+          }
+        },
+        "verification_results": {
+          "type": "object",
+          "description": "Summary of verification results",
+          "properties": {
+            "structure_valid": {
+              "type": "boolean",
+              "description": "Structure validation passed"
+            },
+            "seal_valid": {
+              "type": "boolean",
+              "description": "Seal verification passed"
+            },
+            "evidence_complete": {
+              "type": "boolean",
+              "description": "Evidence completeness check passed"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

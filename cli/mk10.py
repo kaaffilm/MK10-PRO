@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """MK10-PRO CLI main entry point."""
 
 import click

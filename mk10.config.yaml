@@ -34,3 +34,12 @@ formats:
     schema_path: "engine/formats/dcp/schemas"
     strict_validation: true
 
+# Non-claims: Explicit declarations of what MK10-PRO does NOT claim
+non_claims:
+  cross_platform_determinism: false
+  hardware_equivalence: false
+  library_equivalence: false
+  cpu_feature_equivalence: false
+  simd_equivalence: false
+  external_dependency_equivalence: false
+

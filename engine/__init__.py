@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """
 MK10-PRO Engine
 Deterministic execution engine for audiovisual mastering pipelines.

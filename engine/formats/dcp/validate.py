@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """DCP format validation - formal playability only."""
 
 from pathlib import Path

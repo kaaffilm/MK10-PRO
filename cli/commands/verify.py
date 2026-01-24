@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Verify command."""
 
 import click

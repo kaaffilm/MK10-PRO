@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Cryptographic signatures for evidence."""
 
 from typing import Optional

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """File system utilities with content addressing."""
 
 import os

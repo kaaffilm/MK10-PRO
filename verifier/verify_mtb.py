@@ -1,5 +1,6 @@
+# SPDX-License-Identifier: MIT
 """
-Public MTB verifier.
+Standalone public MTB verifier.
 
 No engine, no trust, no authority required.
 Any third party can verify an MTB using only public rules.
@@ -9,7 +10,22 @@ from pathlib import Path
 from typing import Dict, Any
 import sys
 
-from mtb.verify import verify_mtb
+from verifier.verify import verify_mtb
+
+
+def find_schema_path() -> Path:
+    """
+    Find MTB schema path relative to verifier.
+    
+    Returns:
+        Path to MTB schema file
+    """
+    # Schema is in mtb/schema/ relative to project root
+    # Verifier is in verifier/ relative to project root
+    verifier_dir = Path(__file__).parent
+    project_root = verifier_dir.parent
+    schema_path = project_root / "mtb" / "schema" / "mtb.schema.json"
+    return schema_path
 
 
 def main():
@@ -24,8 +40,14 @@ def main():
         print(f"Error: MTB file not found: {mtb_path}")
         sys.exit(1)
     
+    schema_path = find_schema_path()
+    
+    if not schema_path.exists():
+        print(f"Error: Schema file not found: {schema_path}")
+        sys.exit(1)
+    
     print(f"Verifying MTB: {mtb_path}")
-    results = verify_mtb(mtb_path)
+    results = verify_mtb(mtb_path, schema_path)
     
     if results["valid"]:
         print("✓ MTB is valid")
@@ -44,4 +66,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

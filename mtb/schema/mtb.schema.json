@@ -15,7 +15,8 @@
     "validation_evidence",
     "approval_events",
     "integrity_proof",
-    "archive_declaration"
+    "archive_declaration",
+    "non_claims"
   ],
   "properties": {
     "mtb_version": {
@@ -90,18 +91,33 @@
     },
     "policy_evidence": {
       "type": "object",
-      "description": "Rules applied and satisfied",
+      "description": "Rules applied and satisfied - sealed evidence",
       "required": ["rule_checks"],
       "properties": {
         "rule_checks": {
           "type": "array",
+          "minItems": 1,
+          "description": "Policy rule check results. All required rules must be present.",
           "items": {
             "type": "object",
             "required": ["rule_id", "passed"],
             "properties": {
-              "rule_id": {"type": "string"},
-              "passed": {"type": "boolean"},
-              "details": {"type": "object"}
+              "rule_id": {
+                "type": "string",
+                "description": "Policy rule identifier"
+              },
+              "passed": {
+                "type": "boolean",
+                "description": "Binary result: true if rule passed, false if failed"
+              },
+              "reason_code": {
+                "type": "string",
+                "description": "Failure reason code if passed=false. Required if passed=false."
+              },
+              "details": {
+                "type": "object",
+                "description": "Additional check details"
+              }
             }
           }
         }
@@ -158,6 +174,48 @@
         "intent": {"type": "string"},
         "retention_policy": {"type": "string"}
       }
+    },
+    "non_claims": {
+      "type": "object",
+      "description": "Explicit declarations of what MK10-PRO does NOT claim. Required to prevent scope creep and misinterpretation.",
+      "required": [
+        "cross_platform_determinism",
+        "hardware_equivalence",
+        "library_equivalence"
+      ],
+      "properties": {
+        "cross_platform_determinism": {
+          "type": "boolean",
+          "enum": [false],
+          "description": "MK10-PRO does NOT claim cross-platform determinism. Must be false."
+        },
+        "hardware_equivalence": {
+          "type": "boolean",
+          "enum": [false],
+          "description": "MK10-PRO does NOT claim hardware equivalence. Must be false."
+        },
+        "library_equivalence": {
+          "type": "boolean",
+          "enum": [false],
+          "description": "MK10-PRO does NOT claim library equivalence. Must be false."
+        },
+        "cpu_feature_equivalence": {
+          "type": "boolean",
+          "enum": [false],
+          "description": "MK10-PRO does NOT claim CPU feature equivalence. Must be false."
+        },
+        "simd_equivalence": {
+          "type": "boolean",
+          "enum": [false],
+          "description": "MK10-PRO does NOT claim SIMD equivalence. Must be false."
+        },
+        "external_dependency_equivalence": {
+          "type": "boolean",
+          "enum": [false],
+          "description": "MK10-PRO does NOT claim external dependency equivalence. Must be false."
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

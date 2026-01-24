@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Canonical representation for evidence."""
 
 from typing import Any, Dict

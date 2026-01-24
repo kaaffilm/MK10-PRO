@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """JSON utilities with canonical formatting."""
 
 import json

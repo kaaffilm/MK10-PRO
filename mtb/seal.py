@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """MTB sealing with integrity proof."""
 
 from typing import Dict, Any

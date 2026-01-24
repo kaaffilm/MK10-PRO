@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Time utilities for deterministic timestamps."""
 
 from datetime import datetime, timezone

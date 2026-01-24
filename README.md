@@ -33,6 +33,8 @@ If any axiom is violated, MK10‑PRO is invalid by definition.
 
 ```bash
 # Install dependencies
+pip install -r requirements.txt
+# OR
 make install
 
 # Ingest source assets
@@ -47,6 +49,17 @@ mk10 promote --title "MyTitle" --version "v1.0" --state RELEASE
 # Verify an MTB
 mk10 verify --mtb /path/to/mtb.zip
 ```
+
+### Runtime Dependencies
+
+**Required:**
+- `pyyaml>=6.0` — YAML parsing (policy rules, config)
+- `jsonschema>=4.0` — JSON schema validation (MTB, evidence, ingest)
+- `click>=8.0` — CLI framework
+- `cryptography>=41.0` — Cryptographic operations
+- `pycryptodome>=3.19.0` — Additional crypto support
+
+**Full list:** See `requirements.txt`
 
 ---
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Evidence recorder for execution events."""
 
 from pathlib import Path
@@ -105,14 +106,37 @@ class EvidenceRecorder:
         self,
         rule_id: str,
         passed: bool,
-        details: Dict[str, Any],
+        reason_code: Optional[str] = None,
+        details: Dict[str, Any] = None,
     ) -> None:
-        """Record policy rule check."""
+        """
+        Record policy rule check.
+        
+        Evidence must be the product, not a derived artifact.
+        Full policy check payload must be recorded, including reason_code.
+        
+        Args:
+            rule_id: Policy rule identifier
+            passed: Binary result (True/False)
+            reason_code: Failure reason code (required if passed=False)
+            details: Additional check details
+        """
+        if details is None:
+            details = {}
+        
+        # reason_code is required if passed == False
+        if passed == False and not reason_code:
+            raise ValueError(
+                f"Policy check for rule {rule_id} failed but reason_code is missing. "
+                "Evidence must record full policy check payload."
+            )
+        
         timestamp = self._get_deterministic_timestamp()
         event = {
             "event_type": "policy_check",
             "rule_id": rule_id,
             "passed": passed,
+            "reason_code": reason_code,
             "details": details,
             "timestamp": to_iso8601(timestamp),
         }

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Cryptographic hashing utilities."""
 
 import hashlib

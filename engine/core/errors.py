@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Classified error types for MK10-PRO."""
 
 
@@ -43,5 +44,10 @@ class MTBError(MK10Error):
 
 class StateError(MK10Error):
     """Invalid state transition."""
+    pass
+
+
+class IngestError(MK10Error):
+    """Ingest manifest or binding failure."""
     pass
 
