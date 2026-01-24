@@ -50,3 +50,7 @@ Admissibility and legal effect are determined by courts or contractual agreement
 
 **Incorrect.**
 An MTB without understanding the underlying assets and policy semantics is meaningless. The system is a precision tool; safe use requires informed human interpretation.
+
+---
+
+This document is authoritative for misinterpretations. No other claims override it.

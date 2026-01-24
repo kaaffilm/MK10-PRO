@@ -4,6 +4,10 @@
 >
 > **SCOPE (HARD BOUNDARY):** Pre‑delivery truth only. Formal playability under declared specifications. No cinema playback. No devices. No operators. No trust. No exceptions.
 
+For scope limits and common misinterpretations, see:
+- [CANONICAL.md](CANONICAL.md)
+- [ADVERSARIAL_FAQ.md](ADVERSARIAL_FAQ.md)
+
 ---
 
 ## EXECUTIVE DEFINITION (NON‑MARKETING)
