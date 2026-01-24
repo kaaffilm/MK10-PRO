@@ -114,3 +114,22 @@ h2 = compute_hash(mtb2)
 assert h1 == h2, f'Hash mismatch: {h1} != {h2}'
 print('PASS: MTB hash is deterministic')
 "
+
+  pypi-disabled:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e1148ab8c88cfd102cc39c0ff8041a19fc37d2 # v4
+
+      - name: Assert PyPI publishing disabled
+        run: |
+          if [ ! -f PYPI_DISABLED ]; then
+            echo "FAIL: PYPI_DISABLED file missing"
+            exit 1
+          fi
+          
+          if grep -r "pypi-publish" .github/workflows/; then
+            echo "FAIL: PyPI publish action found in workflows"
+            exit 1
+          fi
+          
+          echo "PASS: PyPI publishing disabled"
