@@ -108,9 +108,11 @@ class MTBBuilder:
         check = {
             "rule_id": rule_id,
             "passed": passed,
-            "reason_code": reason_code,
             "details": details or {},
         }
+        # Only include reason_code if present (schema requires string type)
+        if reason_code is not None:
+            check["reason_code"] = reason_code
         self.policy_evidence["rule_checks"].append(check)
     
     def add_validation(

@@ -75,7 +75,8 @@ class Policy:
             
             try:
                 passed = self._check_rule(rule, evidence, lineage_dag, ingest_manifest)
-                reason_code = None
+                # reason_code is required when passed == False
+                reason_code = None if passed else f"RULE_CHECK_FAILED: {rule_id}"
             except PolicyError as e:
                 passed = False
                 reason_code = f"POLICY_CHECK_ERROR: {str(e)}"

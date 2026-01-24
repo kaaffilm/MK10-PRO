@@ -94,6 +94,12 @@ def test_mtb_file_verification():
             size=1000,
         )
         builder.set_build_evidence("exec-1", [])
+        # Schema requires at least one policy check (minItems: 1)
+        builder.add_policy_check(
+            rule_id="test_rule",
+            passed=True,
+            details={"test": True},
+        )
         
         builder.save(mtb_path, sealed=True)
         
