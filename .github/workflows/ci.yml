@@ -111,7 +111,7 @@ jobs:
             exit 1
           fi
           
-          if grep -r "pypi-publish" .github/workflows/; then
+          if grep -rE "uses:.*pypi" .github/workflows/ --include="*.yml" | grep -v "ci.yml"; then
             echo "FAIL: PyPI publish action found in workflows"
             exit 1
           fi
