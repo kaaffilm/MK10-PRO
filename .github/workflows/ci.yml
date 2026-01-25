@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  LC_ALL: C
+  TZ: UTC
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -117,3 +121,21 @@ jobs:
           fi
           
           echo "PASS: PyPI publishing disabled"
+
+  failure-codes-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Verify FAILURE_CODES.json checksum
+        run: |
+          EXPECTED=$(cat .failure_codes_checksum)
+          ACTUAL=$(sha256sum FAILURE_CODES.json | cut -d' ' -f1)
+          
+          if [ "$EXPECTED" != "$ACTUAL" ]; then
+            echo "FAIL: FAILURE_CODES.json has been modified"
+            echo "Expected: $EXPECTED"
+            echo "Actual: $ACTUAL"
+            exit 6
+          fi
+          echo "PASS: FAILURE_CODES.json checksum verified"
