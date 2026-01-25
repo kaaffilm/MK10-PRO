@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "contract": "immutable",
+  "codes": {
+    "0": {
+      "name": "SUCCESS",
+      "meaning": "Execution completed successfully"
+    },
+    "1": {
+      "name": "GENERAL_FAILURE",
+      "meaning": "Unspecified failure"
+    },
+    "2": {
+      "name": "INVALID_INPUT",
+      "meaning": "Input validation failed"
+    },
+    "3": {
+      "name": "SCHEMA_VIOLATION",
+      "meaning": "Schema integrity check failed"
+    },
+    "4": {
+      "name": "POLICY_VIOLATION",
+      "meaning": "Policy rule check failed"
+    },
+    "5": {
+      "name": "DETERMINISM_VIOLATION",
+      "meaning": "Non-deterministic execution detected"
+    },
+    "6": {
+      "name": "INTEGRITY_VIOLATION",
+      "meaning": "Hash or checksum mismatch"
+    },
+    "7": {
+      "name": "INVARIANT_VIOLATION",
+      "meaning": "System invariant breached"
+    }
+  },
+  "rules": {
+    "immutability": "Codes never change semantics",
+    "stability": "New codes append only",
+    "api": "Codes are the API contract"
+  }
+}
