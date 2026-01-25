@@ -1,3 +1,16 @@
+```
+SYS-002
+MK10-PRO
+Execution index (frozen)
+
+STATUS: REGISTERED
+REGISTRY: https://speedkit.eu
+```
+
+Registered system. Identity governed by SPEEDKIT registry.
+
+---
+
 # MK10-PRO v1.0 — Deterministic Pre‑Delivery Truth Infrastructure
 
 > **STATUS:** FINAL / AUTHORITATIVE / CLOSED / FINISHABLE
