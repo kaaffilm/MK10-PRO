@@ -103,25 +103,6 @@ jobs:
         run: |
           python3 -c "import json,hashlib;h=lambda d:hashlib.sha256(json.dumps(d,sort_keys=True).encode()).hexdigest();m1={'files':['a','b','c'],'version':'1.0'};m2={'version':'1.0','files':['a','b','c']};assert h(m1)==h(m2);print('PASS: MTB hash is deterministic')"
 
-  pypi-disabled:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4
-
-      - name: Assert PyPI publishing disabled
-        run: |
-          if [ ! -f PYPI_DISABLED ]; then
-            echo "FAIL: PYPI_DISABLED file missing"
-            exit 1
-          fi
-          
-          if grep -rE "uses:.*pypi" .github/workflows/ --include="*.yml" | grep -v "ci.yml"; then
-            echo "FAIL: PyPI publish action found in workflows"
-            exit 1
-          fi
-          
-          echo "PASS: PyPI publishing disabled"
-
   failure-codes-integrity:
     runs-on: ubuntu-latest
     steps:
@@ -139,3 +120,18 @@ jobs:
             exit 6
           fi
           echo "PASS: FAILURE_CODES.json checksum verified"
+
+  pypi-release-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify PyPI witness release boundary
+        run: |
+          test -f PYPI_RELEASE_POLICY.md
+          test ! -f PYPI_DISABLED
+          test -f .github/workflows/publish.yml
+          test "$(cat VERSION)" = "1.0.3"
+          grep -q 'version = "1.0.3"' pyproject.toml
+          grep -q 'license = "Apache-2.0"' pyproject.toml
+          grep -q 'Witness Release' PYPI_RELEASE_POLICY.md
+          ! grep -RInE 'twine upload|TWINE_PASSWORD|__token__|password:' .github/workflows

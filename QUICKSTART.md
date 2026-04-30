@@ -1,3 +1,22 @@
+<!-- MK10-PRO QUICKSTART PROOF PATH -->
+## Fast verification path
+
+Installed package:
+
+```bash
+mk10 proof
+mk10 boundary
+mk10 witness
+```
+
+Source checkout:
+
+```bash
+bash scripts/release-proof.sh
+```
+
+<!-- END MK10-PRO QUICKSTART PROOF PATH -->
+
 # Quick Start Guide
 
 ## Installation
@@ -126,4 +145,3 @@ Edit `mk10.config.yaml` to customize:
 - Format validation
 
 **Note:** Policy rules cannot be overridden. Policy is law. Configuration only specifies where to find policy files, not what the rules are.
-

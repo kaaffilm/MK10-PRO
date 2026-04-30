@@ -1,10 +1,15 @@
 include README.md
+include USER_START_HERE.md
+include QUICKSTART.md
 include REPRODUCIBILITY.md
-include PYPI_DISABLED
+include PYPI_RELEASE_POLICY.md
 include VERSION
 include FAILURE_CODES.json
 include .schema_checksum
 include .failure_codes_checksum
+include docs/WITNESS_RELEASE.md
+include docs/PYPI_BOUNDARY.md
+recursive-include examples *.md *.yaml
 recursive-include mtb/schema *.json
 recursive-include engine/policy *.yaml
 recursive-include engine/formats/dcp *.yaml
