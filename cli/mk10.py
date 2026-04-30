@@ -11,7 +11,7 @@ from cli.commands.verify import verify
 
 
 @click.group()
-@click.version_option(version="1.0.0")
+@click.version_option(version="1.0.2")
 def main():
     """MK10-PRO - Deterministic Pre-Delivery Truth Infrastructure."""
     pass
