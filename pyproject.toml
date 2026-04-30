@@ -7,7 +7,7 @@ name = "mk10-pro"
 version = "1.0.2"
 description = "Deterministic pre-delivery truth infrastructure for audiovisual mastering. Produces cryptographically verifiable Master Truth Bundles (MTB)."
 readme = "README.md"
-license = "MIT"
+license = "Apache-2.0"
 requires-python = ">=3.9"
 authors = [
     {name = "kaaffilm", email = "dev@kaaffilm.com"}
