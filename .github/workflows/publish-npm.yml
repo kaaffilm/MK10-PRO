@@ -17,19 +17,41 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Assert NPM surface
+      - name: Assert NPM trusted-publish surface
         working-directory: packages/npm
         run: |
-          test "$(node -p "require('./package.json').name")" = "@kaaffilm/mk10-pro"
-          test "$(node -p "require('./package.json').version")" = "1.0.3"
+          node --version
+          npm --version
+          npm install -g npm@latest
+          npm --version
+          node - <<'NODE'
+          const fs = require("fs");
+          const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
+
+          if (pkg.name !== "@kaaffilm/mk10-pro") throw new Error("wrong package name");
+          if (pkg.version !== "1.0.3") throw new Error("wrong package version");
+
+          pkg.repository = {
+            type: "git",
+            url: "https://github.com/kaaffilm/MK10-PRO"
+          };
+
+          pkg.publishConfig = {
+            access: "public",
+            provenance: true
+          };
+
+          fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2) + "\n");
+          NODE
           npm test
           npm pack --dry-run
 
-      - name: Publish to npm
+      - name: Publish to npmjs
         working-directory: packages/npm
-        run: npm publish --provenance --access public
+        run: |
+          npm publish --access public
