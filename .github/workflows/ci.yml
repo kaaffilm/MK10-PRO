@@ -153,3 +153,5 @@ jobs:
           grep -q 'version = "1.0.3"' pyproject.toml
           grep -q 'license = "Apache-2.0"' pyproject.toml
           grep -q 'Witness Release' PYPI_RELEASE_POLICY.md
+          ! grep -RInE 'twine upload|TWINE_PASSWORD|__token__|password:' .github/workflows
+
