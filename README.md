@@ -1,3 +1,23 @@
+<!-- MK10-PRO PUBLIC PACKAGE BOUNDARY -->
+## Public package boundary
+
+MK10-PRO has two public surfaces with different authority:
+
+- **GitHub `main`** is the current governed source surface.
+- **PyPI `mk10-pro` 1.0.2** is an immutable historical package artifact published before the current source-boundary cleanup.
+
+Current source state:
+
+- Package version: `1.0.2`
+- Repository license boundary: `Apache-2.0`
+- PyPI publishing: disabled by `PYPI_DISABLED`
+- No new PyPI artifact is authorized unless `PYPI_DISABLED` is removed under governance.
+
+The existing PyPI 1.0.2 package metadata may still show its upload-time metadata. That does not make PyPI the current governance surface. The repository source, package boundary files, and disabled publishing marker define the current maintained state.
+
+<!-- END MK10-PRO PUBLIC PACKAGE BOUNDARY -->
+
+
 ```
 SYS-002
 MK10-PRO
@@ -122,4 +142,3 @@ If MK10‑PRO refuses a claim, the claim is invalid.
 
 There is no appeal to trust.
 There is only proof.
-

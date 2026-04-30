@@ -1,3 +1,6 @@
+include README.md
+include REPRODUCIBILITY.md
+include PYPI_DISABLED
 include VERSION
 include FAILURE_CODES.json
 include .schema_checksum
