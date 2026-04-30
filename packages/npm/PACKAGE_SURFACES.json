@@ -1,0 +1,14 @@
+{
+  "name": "@kaaffilm/mk10-pro",
+  "version": "1.0.3",
+  "role": "MK10-PRO witness launcher",
+  "source_truth": "https://github.com/kaaffilm/MK10-PRO",
+  "pypi": "mk10-pro==1.0.3",
+  "commands": [
+    "mk10-pro proof",
+    "mk10-pro boundary",
+    "mk10-pro witness",
+    "mk10-pro surfaces"
+  ],
+  "boundary": "launcher_only_no_engine_reimplementation"
+}

@@ -14,3 +14,10 @@ recursive-include mtb/schema *.json
 recursive-include engine/policy *.yaml
 recursive-include engine/formats/dcp *.yaml
 recursive-include examples *.yaml
+include PACKAGE_SURFACES.json
+include docs/PACKAGE_SURFACES.md
+include docs/NPM_BOUNDARY.md
+include docs/PKG_BOUNDARY.md
+recursive-include packages/npm package.json README.md PACKAGE_SURFACES.json
+recursive-include packages/npm/bin *.js
+recursive-include packages/npm/test *.mjs

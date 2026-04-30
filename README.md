@@ -1,3 +1,28 @@
+<!-- MK10-PRO PACKAGE SURFACES -->
+
+## Public package surfaces
+
+| Surface | Role | Command |
+| --- | --- | --- |
+| PYPI | Python install and canonical runtime witness | `pip install mk10-pro==1.0.3 && mk10 proof` |
+| NPM | JavaScript registry launcher surface | `npx @kaaffilm/mk10-pro surfaces` |
+| PKG | GitHub Packages registry surface | `npm install @kaaffilm/mk10-pro --registry=https://npm.pkg.github.com` |
+
+Canonical runtime commands:
+
+```bash
+mk10 proof
+mk10 boundary
+mk10 witness
+```
+
+MK10-PRO has one source truth: GitHub `main` and signed releases.
+
+NPM and PKG are launcher/discovery surfaces. They do not reimplement MK10-PRO and do not expand its claim boundary.
+
+<!-- END MK10-PRO PACKAGE SURFACES -->
+
+
 <!-- MK10-PRO PUBLIC PACKAGE BOUNDARY -->
 ## Public package boundary
 
