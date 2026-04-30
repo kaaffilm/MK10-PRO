@@ -35,10 +35,10 @@ Current source state:
 
 - Package version: `1.0.2`
 - Repository license boundary: `Apache-2.0`
-- PyPI publishing: disabled by `PYPI_DISABLED`
-- No new PyPI artifact is authorized unless `PYPI_DISABLED` is removed under governance.
+- PyPI publishing: enabled for v1.0.3 through `PYPI_RELEASE_POLICY.md` and Trusted Publishing.
+- New package publication must use governed release workflows only.
 
-The existing PyPI 1.0.2 package metadata may still show its upload-time metadata. That does not make PyPI the current governance surface. The repository source, package boundary files, and disabled publishing marker define the current maintained state.
+The existing PyPI 1.0.2 package is historical. PyPI 1.0.3 is the current published witness package. GitHub `main`, signed releases, and package boundary files define the maintained source state.
 
 <!-- END MK10-PRO PUBLIC PACKAGE BOUNDARY -->
 

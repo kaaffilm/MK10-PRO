@@ -1,12 +1,9 @@
 name: Identity
 
 on:
-  push:
-    paths:
-      - 'README.md'
   pull_request:
-    paths:
-      - 'README.md'
+  push:
+    branches: [main]
 
 permissions:
   contents: read
@@ -17,11 +14,42 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Verify README identity (SYS-002)
+      - name: Verify MK10-PRO public identity
         run: |
-          set -euo pipefail
-          HEADER=$(sed -n '/^```$/,/^```$/p' README.md | head -10)
-          echo "$HEADER" | grep -q '^SYS-002$' || { echo "FAIL: SYS-002 not found"; exit 1; }
-          echo "$HEADER" | grep -q '^STATUS: REGISTERED$' || { echo "FAIL: STATUS missing"; exit 1; }
-          echo "$HEADER" | grep -q '^REGISTRY: https://speedkit.eu$' || { echo "FAIL: REGISTRY missing"; exit 1; }
-          echo "PASS: SYS-002 identity verified"
+          test "$(cat VERSION)" = "1.0.3"
+          test -f PYPI_RELEASE_POLICY.md
+          test ! -f PYPI_DISABLED
+          test -f PACKAGE_SURFACES.json
+          test -f docs/PACKAGE_SURFACES.md
+          test -f docs/NPM_BOUNDARY.md
+          test -f docs/PKG_BOUNDARY.md
+          test -f .github/workflows/publish.yml
+          test -f .github/workflows/publish-npm.yml
+          test -f .github/workflows/publish-pkg.yml
+
+          grep -q 'Witness Release' PYPI_RELEASE_POLICY.md
+          grep -q 'PYPI' README.md
+          grep -q 'NPM' README.md
+          grep -q 'PKG' README.md
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import re
+
+          surfaces = json.loads(Path("PACKAGE_SURFACES.json").read_text())
+          assert surfaces["version"] == "1.0.3"
+          assert surfaces["package_surfaces"]["pypi"]["package"] == "mk10-pro"
+          assert surfaces["package_surfaces"]["npm"]["package"] == "@kaaffilm/mk10-pro"
+          assert surfaces["package_surfaces"]["pkg"]["registry"] == "https://npm.pkg.github.com"
+
+          pyproject = Path("pyproject.toml").read_text()
+          assert 'version = "1.0.3"' in pyproject
+          assert 'license = "Apache-2.0"' in pyproject
+
+          readme = Path("README.md").read_text()
+          assert "PyPI publishing: disabled by `PYPI_DISABLED`" not in readme
+          assert "NPM and PKG are launcher/discovery surfaces" in readme
+
+          print("MK10-PRO IDENTITY: PASS")
+          PY

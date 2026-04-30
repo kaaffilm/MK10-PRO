@@ -37,6 +37,7 @@ jobs:
           grep -q 'PYPI' README.md
           grep -q 'NPM' README.md
           grep -q 'PKG' README.md
+          ! grep -q 'PyPI publishing: disabled by `PYPI_DISABLED`' README.md
 
       - name: Verify Python witness surface
         run: |
