@@ -1,0 +1,47 @@
+{
+  "name": "MK10-PRO",
+  "version": "1.0.3",
+  "source_truth": {
+    "kind": "github",
+    "url": "https://github.com/kaaffilm/MK10-PRO",
+    "branch": "main",
+    "release": "v1.0.3"
+  },
+  "package_surfaces": {
+    "pypi": {
+      "kind": "python",
+      "package": "mk10-pro",
+      "install": "pip install mk10-pro==1.0.3",
+      "proof": "mk10 proof"
+    },
+    "npm": {
+      "kind": "node-launcher",
+      "package": "@kaaffilm/mk10-pro",
+      "install": "npm install -g @kaaffilm/mk10-pro",
+      "proof": "npx @kaaffilm/mk10-pro proof"
+    },
+    "pkg": {
+      "kind": "github-packages",
+      "package": "@kaaffilm/mk10-pro",
+      "registry": "https://npm.pkg.github.com",
+      "install": "npm install @kaaffilm/mk10-pro --registry=https://npm.pkg.github.com",
+      "proof": "npx @kaaffilm/mk10-pro proof"
+    }
+  },
+  "claim_boundary": {
+    "claim": "deterministic_pre_delivery_truth_infrastructure",
+    "does_not_verify": [
+      "playback",
+      "device compatibility",
+      "venue certification",
+      "operator trustworthiness",
+      "post-delivery behavior",
+      "business outcome"
+    ]
+  },
+  "canonical_commands": [
+    "mk10 proof",
+    "mk10 boundary",
+    "mk10 witness"
+  ]
+}

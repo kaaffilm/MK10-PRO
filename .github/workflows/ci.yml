@@ -125,13 +125,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Verify PyPI witness release boundary
+
+      - name: Verify PyPI release boundary
         run: |
+          test "$(cat VERSION)" = "1.0.3"
           test -f PYPI_RELEASE_POLICY.md
           test ! -f PYPI_DISABLED
           test -f .github/workflows/publish.yml
-          test "$(cat VERSION)" = "1.0.3"
           grep -q 'version = "1.0.3"' pyproject.toml
           grep -q 'license = "Apache-2.0"' pyproject.toml
           grep -q 'Witness Release' PYPI_RELEASE_POLICY.md
-          ! grep -RInE 'twine upload|TWINE_PASSWORD|__token__|password:' .github/workflows
+          grep -q 'PYPI' README.md
+          grep -q 'NPM' README.md
+          grep -q 'PKG' README.md
+          python - <<'PY'
+          from pathlib import Path
+
+          forbidden = [
+              "twine " + "upload",
+              "TWINE_" + "PASSWORD",
+              "pypi_" + "password",
+              "pypi-" + "token",
+              "pypi_" + "token",
+          ]
+
+          for path in Path(".github/workflows").glob("*.yml"):
+              text = path.read_text()
+              for needle in forbidden:
+                  if needle in text:
+                      raise SystemExit(f"forbidden publish credential pattern in {path}")
+
+          publish = Path(".github/workflows/publish.yml").read_text()
+          assert "pypa/gh-action-pypi-publish@release/v1" in publish
+          assert "id-token: write" in publish
+          assert "username" not in publish.lower()
+          assert ("pass" + "word") not in publish.lower()
+          print("PYPI_RELEASE_BOUNDARY: PASS")
+          PY

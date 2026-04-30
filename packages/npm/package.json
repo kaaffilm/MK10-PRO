@@ -1,0 +1,45 @@
+{
+  "name": "@kaaffilm/mk10-pro",
+  "version": "1.0.3",
+  "description": "MK10-PRO witness launcher: public package-surface entrypoint for proof, boundary, and witness commands.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "mk10-pro": "./bin/mk10-pro.js"
+  },
+  "files": [
+    "bin/",
+    "README.md",
+    "PACKAGE_SURFACES.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaaffilm/MK10-PRO.git",
+    "directory": "packages/npm"
+  },
+  "homepage": "https://github.com/kaaffilm/MK10-PRO#readme",
+  "bugs": {
+    "url": "https://github.com/kaaffilm/MK10-PRO/issues"
+  },
+  "keywords": [
+    "mk10",
+    "mk10-pro",
+    "witness",
+    "provenance",
+    "deterministic",
+    "pre-delivery-truth",
+    "audiovisual",
+    "package-surface"
+  ],
+  "scripts": {
+    "test": "node ./test/smoke.mjs",
+    "pack:check": "npm pack --dry-run"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
