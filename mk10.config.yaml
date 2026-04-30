@@ -1,7 +1,7 @@
 # MK10-PRO Configuration
 # Policy is law. Configuration cannot override rules.
 
-version: "1.0.0"
+version: "1.0.2"
 
 workspace:
   root: ".workspace"

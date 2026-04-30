@@ -1,0 +1,8 @@
+include VERSION
+include FAILURE_CODES.json
+include .schema_checksum
+include .failure_codes_checksum
+recursive-include mtb/schema *.json
+recursive-include engine/policy *.yaml
+recursive-include engine/formats/dcp *.yaml
+recursive-include examples *.yaml
