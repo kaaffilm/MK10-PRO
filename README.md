@@ -17,6 +17,43 @@ The existing PyPI 1.0.2 package metadata may still show its upload-time metadata
 
 <!-- END MK10-PRO PUBLIC PACKAGE BOUNDARY -->
 
+<!-- MK10-PRO WITNESS RELEASE SURFACE -->
+## Start here
+
+Installed package:
+
+```bash
+pip install mk10-pro==1.0.3
+mk10 proof
+mk10 boundary
+mk10 witness
+```
+
+Source checkout:
+
+```bash
+git clone https://github.com/kaaffilm/MK10-PRO.git
+cd MK10-PRO
+bash scripts/release-proof.sh
+```
+
+Release identity:
+
+```text
+MK10-PRO v1.0.3 — Witness Release
+```
+
+Success lines:
+
+```text
+MK10-PRO PROOF: PASS
+MK10-PRO BOUNDARY: PASS
+MK10-PRO WITNESS: PASS
+MK10-PRO RELEASE PROOF: PASS
+```
+
+<!-- END MK10-PRO WITNESS RELEASE SURFACE -->
+
 
 ```
 SYS-002

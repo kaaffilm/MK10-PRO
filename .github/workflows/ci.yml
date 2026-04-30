@@ -139,3 +139,17 @@ jobs:
             exit 6
           fi
           echo "PASS: FAILURE_CODES.json checksum verified"
+
+  pypi-release-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify PyPI witness release boundary
+        run: |
+          test -f PYPI_RELEASE_POLICY.md
+          test ! -f PYPI_DISABLED
+          test -f .github/workflows/publish.yml
+          test "$(cat VERSION)" = "1.0.3"
+          grep -q 'version = "1.0.3"' pyproject.toml
+          grep -q 'license = "Apache-2.0"' pyproject.toml
+          grep -q 'Witness Release' PYPI_RELEASE_POLICY.md

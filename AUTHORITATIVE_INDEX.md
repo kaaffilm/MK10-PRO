@@ -22,7 +22,6 @@ MK10-PRO is the **authoritative source** for:
 
 | System | Relationship |
 |--------|--------------|
-| VERIFRAX | Consumes MTB for certificate issuance |
 | CICULLIS | Enforces policy at CI time |
 
 ## Non-authoritative
