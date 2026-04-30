@@ -142,23 +142,23 @@ jobs:
           from pathlib import Path
 
           forbidden = [
-              "twine upload",
-              "TWINE_PASSWORD",
-              "pypi_password",
-              "pypi-token",
-              "pypi_token",
+              "twine " + "upload",
+              "TWINE_" + "PASSWORD",
+              "pypi_" + "password",
+              "pypi-" + "token",
+              "pypi_" + "token",
           ]
 
           for path in Path(".github/workflows").glob("*.yml"):
               text = path.read_text()
               for needle in forbidden:
                   if needle in text:
-                      raise SystemExit(f"forbidden publish secret pattern {needle!r} in {path}")
+                      raise SystemExit(f"forbidden publish credential pattern in {path}")
 
           publish = Path(".github/workflows/publish.yml").read_text()
           assert "pypa/gh-action-pypi-publish@release/v1" in publish
           assert "id-token: write" in publish
           assert "username" not in publish.lower()
-          assert "password" not in publish.lower()
+          assert ("pass" + "word") not in publish.lower()
           print("PYPI_RELEASE_BOUNDARY: PASS")
           PY
