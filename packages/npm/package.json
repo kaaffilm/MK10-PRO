@@ -14,8 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaaffilm/MK10-PRO.git",
-    "directory": "packages/npm"
+    "url": "https://github.com/kaaffilm/MK10-PRO"
   },
   "homepage": "https://github.com/kaaffilm/MK10-PRO#readme",
   "bugs": {
