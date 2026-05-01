@@ -34,3 +34,7 @@ include scripts/auditor-replay-proof.sh
 include AUDIT_PACKET.md
 include docs/AUDIT_PACKET.md
 include scripts/audit-packet-proof.sh
+
+include AUDIT_RECEIPT_CONTRACT.json
+include docs/AUDIT_RECEIPT.md
+include scripts/audit-receipt-proof.sh
