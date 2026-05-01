@@ -408,3 +408,13 @@ Run the complete external audit surface from one command:
 This executes the public surface lock, public replay perimeter, auditor replay entrypoint, external audit packet, audit receipt, audit receipt schema verifier, negative controls, targeted tests, and NPM surface verification.
 
 <!-- END MK10-PRO EXTERNAL AUDIT GATE -->
+
+## Offline audit lock
+
+MK10-PRO v1.0.3 includes an offline audit lock:
+
+```sh
+bash scripts/offline-audit-lock.sh
+````
+
+This verifier is local/static after checkout. It does not install packages, query npm/PyPI, call GitHub APIs, or promote live registry state to canonical truth.
