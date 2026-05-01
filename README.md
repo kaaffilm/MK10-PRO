@@ -418,3 +418,13 @@ bash scripts/offline-audit-lock.sh
 ````
 
 This verifier is local/static after checkout. It does not install packages, query npm/PyPI, call GitHub APIs, or promote live registry state to canonical truth.
+
+## v1.0.3 Airgap Audit Bundle
+
+MK10-PRO v1.0.3 now includes an airgap audit bundle.
+
+After checkout, the bundle verifies the local audit perimeter without registry lookup, network fetch, GitHub API access, package installation, or version raise.
+
+Verifier:
+
+    bash scripts/airgap-audit-bundle.sh

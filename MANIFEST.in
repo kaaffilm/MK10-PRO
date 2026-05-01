@@ -56,3 +56,6 @@ include docs/OFFLINE_AUDIT_LOCK.md
 include scripts/offline-audit-lock.sh
 include tests/test_offline_audit_lock.py
 include .github/workflows/offline-audit-lock.yml
+include AIRGAP_AUDIT_BUNDLE.json
+include docs/AIRGAP_AUDIT_BUNDLE.md
+include scripts/airgap-audit-bundle.sh
