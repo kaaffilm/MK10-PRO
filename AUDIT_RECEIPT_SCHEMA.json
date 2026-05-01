@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kaaffilm/MK10-PRO/AUDIT_RECEIPT_SCHEMA.json",
+  "title": "MK10-PRO v1.0.3 Audit Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_type",
+    "status",
+    "version",
+    "locked_version",
+    "canonical_runtime_witness",
+    "no_version_raise",
+    "source_truth",
+    "package_surfaces",
+    "proof_chain",
+    "files",
+    "claim_boundary"
+  ],
+  "properties": {
+    "receipt_type": {
+      "const": "mk10_pro_v1_0_3_external_audit_receipt"
+    },
+    "status": {
+      "const": "PASS"
+    },
+    "version": {
+      "const": "1.0.3"
+    },
+    "locked_version": {
+      "const": "1.0.3"
+    },
+    "canonical_runtime_witness": {
+      "const": "pypi"
+    },
+    "no_version_raise": {
+      "const": true
+    },
+    "source_truth": {
+      "type": "object",
+      "required": ["repository", "branch", "release"],
+      "additionalProperties": false,
+      "properties": {
+        "repository": { "const": "kaaffilm/MK10-PRO" },
+        "branch": { "const": "main" },
+        "release": { "const": "v1.0.3" }
+      }
+    },
+    "package_surfaces": {
+      "type": "object",
+      "required": ["pypi", "npm", "pkg"],
+      "additionalProperties": false,
+      "properties": {
+        "pypi": {
+          "type": "object",
+          "required": ["package", "version", "role"],
+          "additionalProperties": false,
+          "properties": {
+            "package": { "const": "mk10-pro" },
+            "version": { "const": "1.0.3" },
+            "role": { "const": "canonical runtime witness" }
+          }
+        },
+        "npm": {
+          "type": "object",
+          "required": ["package", "version", "role", "runtime_boundary"],
+          "additionalProperties": false,
+          "properties": {
+            "package": { "const": "@kaaffilm/mk10-pro" },
+            "version": { "const": "1.0.3" },
+            "role": { "const": "public registry discovery surface" },
+            "runtime_boundary": { "const": "not_canonical_runtime_witness" }
+          }
+        },
+        "pkg": {
+          "type": "object",
+          "required": ["package", "version", "role", "runtime_boundary"],
+          "additionalProperties": false,
+          "properties": {
+            "package": { "const": "@kaaffilm/mk10-pro" },
+            "version": { "const": "1.0.3" },
+            "role": { "const": "GitHub Packages surface" },
+            "runtime_boundary": { "const": "not_canonical_runtime_witness" }
+          }
+        }
+      }
+    },
+    "proof_chain": {
+      "type": "object",
+      "required": [
+        "public_surface_proof",
+        "public_replay_perimeter",
+        "auditor_replay_entrypoint",
+        "external_audit_packet"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "public_surface_proof": { "const": "PASS" },
+        "public_replay_perimeter": { "const": "PASS" },
+        "auditor_replay_entrypoint": { "const": "PASS" },
+        "external_audit_packet": { "const": "PASS" }
+      }
+    },
+    "files": {
+      "type": "object",
+      "required": [
+        "audit_receipt_contract_sha256",
+        "package_surfaces_sha256",
+        "audit_packet_sha256",
+        "public_surface_sha256",
+        "auditor_start_here_sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "audit_receipt_contract_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "package_surfaces_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "audit_packet_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "public_surface_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "auditor_start_here_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "claim_boundary": {
+      "type": "object",
+      "required": ["claim", "does_not_verify"],
+      "additionalProperties": false,
+      "properties": {
+        "claim": { "const": "deterministic_pre_delivery_truth_infrastructure" },
+        "does_not_verify": {
+          "type": "array",
+          "minItems": 6,
+          "items": { "type": "string" },
+          "contains": { "const": "business outcome" }
+        }
+      }
+    }
+  }
+}

@@ -371,3 +371,18 @@ The receipt proves:
 The receipt is evidence output, not a new claim surface.
 
 <!-- END MK10-PRO AUDIT RECEIPT -->
+
+<!-- MK10-PRO AUDIT RECEIPT SCHEMA -->
+## MK10-PRO v1.0.3 audit receipt schema
+
+Machine-verifiable receipt schema:
+
+    bash scripts/audit-receipt-schema-proof.sh
+
+Standalone receipt verification:
+
+    node scripts/verify-audit-receipt.cjs /path/to/MK10_PRO_AUDIT_RECEIPT.json
+
+This fixes the receipt shape at v1.0.3 and preserves the no-version-raise rule.
+
+<!-- END MK10-PRO AUDIT RECEIPT SCHEMA -->
