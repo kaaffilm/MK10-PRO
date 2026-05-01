@@ -1,0 +1,13 @@
+name: airgap-audit-digest-lock
+
+on:
+push:
+pull_request:
+
+jobs:
+airgap-audit-digest-lock:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v4
+- name: Verify airgap audit digest lock
+run: bash scripts/airgap-audit-digest-lock.sh
