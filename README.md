@@ -301,3 +301,31 @@ No public package version may be raised to repair an immutable registry artifact
 PyPI remains the canonical runtime witness. NPM and PKG remain public package surfaces only.
 
 <!-- END MK10-PRO PUBLIC REPLAY PERIMETER -->
+
+<!-- MK10-PRO AUDITOR ENTRYPOINT -->
+
+## MK10-PRO v1.0.3 auditor entrypoint
+
+Public audit starts here:
+
+```bash
+bash scripts/auditor-replay-proof.sh
+```
+
+The auditor entrypoint confirms:
+
+* source truth remains GitHub `main` and release `v1.0.3`;
+* PyPI remains the canonical runtime witness;
+* NPM and PKG remain package/discovery surfaces only;
+* public package version remains locked at `1.0.3`;
+* public surface proof and public replay proof both pass.
+
+Do not raise the public package version to repair an immutable registry artifact.
+
+See:
+
+* [`AUDITOR_START_HERE.md`](AUDITOR_START_HERE.md)
+* [`docs/AUDITOR_REPLAY.md`](docs/AUDITOR_REPLAY.md)
+
+<!-- END MK10-PRO AUDITOR ENTRYPOINT -->
+

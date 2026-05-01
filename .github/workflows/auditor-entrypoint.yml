@@ -1,0 +1,43 @@
+name: Auditor Replay Entrypoint
+
+on:
+  pull_request:
+    paths:
+      - "AUDITOR_START_HERE.md"
+      - "docs/AUDITOR_REPLAY.md"
+      - "scripts/auditor-replay-proof.sh"
+      - "tests/test_auditor_entrypoint.py"
+      - "README.md"
+      - "MANIFEST.in"
+      - ".github/workflows/auditor-entrypoint.yml"
+  push:
+    branches: [main]
+    paths:
+      - "AUDITOR_START_HERE.md"
+      - "docs/AUDITOR_REPLAY.md"
+      - "scripts/auditor-replay-proof.sh"
+      - "tests/test_auditor_entrypoint.py"
+      - "README.md"
+      - "MANIFEST.in"
+      - ".github/workflows/auditor-entrypoint.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  auditor-replay-entrypoint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Verify auditor replay entrypoint
+        run: bash scripts/auditor-replay-proof.sh
