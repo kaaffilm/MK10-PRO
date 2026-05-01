@@ -1,0 +1,49 @@
+{
+  "artifact": "MK10-PRO airgap audit release gate",
+  "version": "1.0.3",
+  "lock": "AIRGAP_AUDIT_RELEASE_GATE",
+  "claim": "The v1.0.3 release candidate is admissible only when the offline audit lock, airgap audit bundle, airgap negative controls, and airgap digest lock all replay locally from repository checkout without network, registry lookup, or package installation.",
+  "canonical_source": "repository checkout",
+  "network_after_checkout": "forbidden",
+  "registry_lookup_required": false,
+  "package_install_required": false,
+  "offline_replay_required": true,
+  "no_version_raise": true,
+  "digest_algorithm": "sha256",
+  "version_boundary": {
+    "locked_version": "1.0.3",
+    "version_raise_allowed": false
+  },
+  "inherited_locks": [
+    "OFFLINE_AUDIT_LOCK",
+    "AIRGAP_AUDIT_BUNDLE",
+    "AIRGAP_AUDIT_NEGATIVE_CONTROLS",
+    "AIRGAP_AUDIT_DIGEST_LOCK"
+  ],
+  "required_files": [
+    "pyproject.toml",
+    "packages/npm/package.json",
+    "OFFLINE_AUDIT_LOCK.json",
+    "AIRGAP_AUDIT_BUNDLE.json",
+    "AIRGAP_AUDIT_NEGATIVE_CONTROLS.json",
+    "AIRGAP_AUDIT_DIGEST_LOCK.json",
+    "AIRGAP_AUDIT_RELEASE_GATE.json",
+    "scripts/offline-audit-lock.sh",
+    "scripts/airgap-audit-bundle.sh",
+    "scripts/airgap-audit-negative-controls.sh",
+    "scripts/airgap-audit-digest-lock.sh",
+    "scripts/airgap-audit-release-gate.sh",
+    "tests/test_offline_audit_lock.py",
+    "tests/test_airgap_audit_bundle.py",
+    "tests/test_airgap_audit_negative_controls.py",
+    "tests/test_airgap_audit_digest_lock.py",
+    "tests/test_airgap_audit_release_gate.py",
+    ".github/workflows/offline-audit-lock.yml",
+    ".github/workflows/airgap-audit-bundle.yml",
+    ".github/workflows/airgap-audit-negative-controls.yml",
+    ".github/workflows/airgap-audit-digest-lock.yml",
+    ".github/workflows/airgap-audit-release-gate.yml"
+  ],
+  "release_candidate": true,
+  "public_package_surface": "witness only"
+}

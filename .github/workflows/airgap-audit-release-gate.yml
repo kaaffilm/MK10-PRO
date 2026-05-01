@@ -1,0 +1,21 @@
+name: airgap-audit-release-gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  airgap-audit-release-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify airgap audit release gate
+        run: bash scripts/airgap-audit-release-gate.sh
