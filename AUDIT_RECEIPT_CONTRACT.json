@@ -1,0 +1,49 @@
+{
+  "name": "MK10-PRO audit receipt contract",
+  "version": "1.0.3",
+  "locked_version": "1.0.3",
+  "canonical_runtime_witness": "pypi",
+  "source_truth": {
+    "repository": "kaaffilm/MK10-PRO",
+    "branch": "main",
+    "release": "v1.0.3"
+  },
+  "receipt_type": "mk10_pro_v1_0_3_external_audit_receipt",
+  "required_proofs": [
+    "public_surface_proof",
+    "public_replay_perimeter",
+    "auditor_replay_entrypoint",
+    "external_audit_packet"
+  ],
+  "package_surfaces": {
+    "pypi": {
+      "package": "mk10-pro",
+      "version": "1.0.3",
+      "role": "canonical runtime witness"
+    },
+    "npm": {
+      "package": "@kaaffilm/mk10-pro",
+      "version": "1.0.3",
+      "role": "public registry discovery surface",
+      "runtime_boundary": "not_canonical_runtime_witness"
+    },
+    "pkg": {
+      "package": "@kaaffilm/mk10-pro",
+      "version": "1.0.3",
+      "role": "GitHub Packages surface",
+      "runtime_boundary": "not_canonical_runtime_witness"
+    }
+  },
+  "no_version_raise": true,
+  "claim_boundary": {
+    "claim": "deterministic_pre_delivery_truth_infrastructure",
+    "does_not_verify": [
+      "playback",
+      "device compatibility",
+      "venue certification",
+      "operator trustworthiness",
+      "post-delivery behavior",
+      "business outcome"
+    ]
+  }
+}

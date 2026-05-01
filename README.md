@@ -349,3 +349,25 @@ This verifies:
 The audit packet does not expand the claim boundary.
 
 <!-- END MK10-PRO EXTERNAL AUDIT PACKET -->
+
+<!-- MK10-PRO AUDIT RECEIPT -->
+## MK10-PRO v1.0.3 audit receipt
+
+Machine-readable audit receipt:
+
+    bash scripts/audit-receipt-proof.sh
+
+The receipt proves:
+
+- public surface proof passed
+- public replay perimeter passed
+- auditor replay entrypoint passed
+- external audit packet passed
+- version remains 1.0.3
+- PyPI remains canonical runtime witness
+- NPM and PKG remain non-canonical public package surfaces
+- no public package version was raised
+
+The receipt is evidence output, not a new claim surface.
+
+<!-- END MK10-PRO AUDIT RECEIPT -->
