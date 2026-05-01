@@ -1,0 +1,60 @@
+{
+  "artifact": "MK10-PRO airgap audit digest lock",
+  "version": "1.0.3",
+  "lock": "AIRGAP_AUDIT_DIGEST_LOCK",
+  "claim": "After repository checkout, the airgap audit perimeter is replayed and a deterministic SHA-256 digest receipt is produced over the critical offline, airgap, and negative-control files.",
+  "canonical_source": "repository checkout",
+  "npm_package_json": "packages/npm/package.json",
+  "npm_working_directory": "packages/npm",
+  "digest_algorithm": "sha256",
+  "receipt_filename": "MK10_PRO_AIRGAP_AUDIT_DIGEST_LOCK_RECEIPT.json",
+  "network_after_checkout": "forbidden",
+  "registry_lookup_required": false,
+  "package_install_required": false,
+  "offline_replay_required": true,
+  "public_package_surface": "witness only",
+  "no_version_raise": true,
+  "version_boundary": {
+    "locked_version": "1.0.3",
+    "version_raise_allowed": false
+  },
+  "inherited_locks": [
+    "OFFLINE_AUDIT_LOCK",
+    "AIRGAP_AUDIT_BUNDLE",
+    "AIRGAP_AUDIT_NEGATIVE_CONTROLS"
+  ],
+  "required_files": [
+    "pyproject.toml",
+    "MANIFEST.in",
+    "README.md",
+    "packages/npm/package.json",
+    "packages/npm/PACKAGE_SURFACES.json",
+    "packages/npm/bin/mk10-pro.js",
+    "OFFLINE_AUDIT_LOCK.json",
+    "AIRGAP_AUDIT_BUNDLE.json",
+    "AIRGAP_AUDIT_NEGATIVE_CONTROLS.json",
+    "AIRGAP_AUDIT_DIGEST_LOCK.json",
+    "docs/OFFLINE_AUDIT_LOCK.md",
+    "docs/AIRGAP_AUDIT_BUNDLE.md",
+    "docs/AIRGAP_AUDIT_NEGATIVE_CONTROLS.md",
+    "docs/AIRGAP_AUDIT_DIGEST_LOCK.md",
+    "scripts/offline-audit-lock.sh",
+    "scripts/airgap-audit-bundle.sh",
+    "scripts/airgap-audit-negative-controls.sh",
+    "scripts/airgap-audit-digest-lock.sh",
+    "tests/test_offline_audit_lock.py",
+    "tests/test_airgap_audit_bundle.py",
+    "tests/test_airgap_audit_negative_controls.py",
+    "tests/test_airgap_audit_digest_lock.py",
+    ".github/workflows/offline-audit-lock.yml",
+    ".github/workflows/airgap-audit-bundle.yml",
+    ".github/workflows/airgap-audit-negative-controls.yml",
+    ".github/workflows/airgap-audit-digest-lock.yml"
+  ],
+  "required_negative_controls": [
+    "receipt_version_raised",
+    "receipt_lock_changed",
+    "receipt_digest_tampered",
+    "receipt_file_removed"
+  ]
+}

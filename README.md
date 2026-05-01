@@ -448,3 +448,10 @@ External audit gate
 Audit receipt negative controls
 No version raise
 <!-- /AIRGAP_NEGATIVE_CONTROLS_README_BOUNDARY_COMPAT -->
+## Airgap audit digest lock
+
+The v1.0.3 airgap audit digest lock computes SHA-256 digests for the offline replay perimeter, airgap bundle, and airgap negative controls from repository checkout only.
+
+`sh
+bash scripts/airgap-audit-digest-lock.sh
+`

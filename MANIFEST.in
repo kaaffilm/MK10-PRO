@@ -62,3 +62,7 @@ include scripts/airgap-audit-bundle.sh
 include AIRGAP_AUDIT_NEGATIVE_CONTROLS.json
 include docs/AIRGAP_AUDIT_NEGATIVE_CONTROLS.md
 include scripts/airgap-audit-negative-controls.sh
+include AIRGAP_AUDIT_DIGEST_LOCK.json
+include docs/AIRGAP_AUDIT_DIGEST_LOCK.md
+include scripts/airgap-audit-digest-lock.sh
+include tests/test_airgap_audit_digest_lock.py
