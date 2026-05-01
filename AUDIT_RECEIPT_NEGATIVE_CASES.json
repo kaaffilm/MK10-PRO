@@ -1,0 +1,18 @@
+{
+  "name": "MK10-PRO v1.0.3 audit receipt negative controls",
+  "version": "1.0.3",
+  "locked_version": "1.0.3",
+  "purpose": "prove the standalone audit receipt verifier rejects boundary drift",
+  "negative_cases": [
+    "version_raised",
+    "locked_version_raised",
+    "canonical_witness_changed",
+    "no_version_raise_disabled",
+    "npm_promoted_to_canonical",
+    "proof_chain_failure",
+    "bad_sha256_binding",
+    "source_release_changed",
+    "status_failure",
+    "claim_boundary_expanded"
+  ]
+}

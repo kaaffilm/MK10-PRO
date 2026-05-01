@@ -386,3 +386,14 @@ Standalone receipt verification:
 This fixes the receipt shape at v1.0.3 and preserves the no-version-raise rule.
 
 <!-- END MK10-PRO AUDIT RECEIPT SCHEMA -->
+
+<!-- MK10-PRO AUDIT RECEIPT NEGATIVE CONTROLS -->
+## MK10-PRO v1.0.3 audit receipt negative controls
+
+The audit receipt verifier must reject mutated receipts:
+
+    bash scripts/audit-receipt-negative-proof.sh
+
+Negative cases include version drift, witness drift, NPM canonicalization, failed proof-chain state, invalid hash binding, wrong source release, disabled no-version-raise rule, and claim-boundary expansion.
+
+<!-- END MK10-PRO AUDIT RECEIPT NEGATIVE CONTROLS -->
