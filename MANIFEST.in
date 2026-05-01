@@ -66,3 +66,8 @@ include AIRGAP_AUDIT_DIGEST_LOCK.json
 include docs/AIRGAP_AUDIT_DIGEST_LOCK.md
 include scripts/airgap-audit-digest-lock.sh
 include tests/test_airgap_audit_digest_lock.py
+include AIRGAP_AUDIT_RELEASE_GATE.json
+include docs/AIRGAP_AUDIT_RELEASE_GATE.md
+include scripts/airgap-audit-release-gate.sh
+include tests/test_airgap_audit_release_gate.py
+include .github/workflows/airgap-audit-release-gate.yml

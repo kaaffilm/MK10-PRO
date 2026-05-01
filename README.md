@@ -455,3 +455,15 @@ The v1.0.3 airgap audit digest lock computes SHA-256 digests for the offline rep
 `sh
 bash scripts/airgap-audit-digest-lock.sh
 `
+
+## Airgap audit release gate
+
+MK10-PRO v1.0.3 includes an airgap audit release gate.
+
+Run:
+
+```sh
+bash scripts/airgap-audit-release-gate.sh
+```
+
+This gate replays the offline audit lock, airgap audit bundle, airgap audit negative controls, and airgap audit digest lock from repository checkout without requiring network fetch, registry lookup, or package installation.
