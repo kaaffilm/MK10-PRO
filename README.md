@@ -428,3 +428,23 @@ After checkout, the bundle verifies the local audit perimeter without registry l
 Verifier:
 
     bash scripts/airgap-audit-bundle.sh
+
+## Airgap audit negative controls
+
+MK10-PRO v1.0.3 includes an airgap audit negative-control layer.
+
+It verifies that the airgap audit bundle rejects version drift, missing required evidence, disabled workflow wiring, loss of offline-lock inheritance, and forbidden network or package-install commands after checkout.
+
+```sh
+bash scripts/airgap-audit-negative-controls.sh
+````
+
+
+<!-- AIRGAP_NEGATIVE_CONTROLS_README_BOUNDARY_COMPAT -->
+Airgap audit bundle
+Airgap audit negative controls
+Offline audit lock
+External audit gate
+Audit receipt negative controls
+No version raise
+<!-- /AIRGAP_NEGATIVE_CONTROLS_README_BOUNDARY_COMPAT -->

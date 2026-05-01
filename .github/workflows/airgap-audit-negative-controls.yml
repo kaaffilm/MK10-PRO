@@ -1,0 +1,15 @@
+name: airgap-audit-negative-controls
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  airgap-audit-negative-controls:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify airgap audit negative controls
+        shell: bash
+        run: bash scripts/airgap-audit-negative-controls.sh
