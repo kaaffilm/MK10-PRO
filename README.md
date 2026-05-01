@@ -60,6 +60,30 @@ NPM and PKG remain public package surfaces, but they are not the canonical runti
 
 <!-- END MK10-PRO NO VERSION RAISE LOCK -->
 
+<!-- MK10-PRO 1.0.3 COMPLETION LOCK -->
+## MK10-PRO 1.0.3 completion lock
+
+MK10-PRO `1.0.3` is the completed public package surface.
+
+Public surfaces:
+
+```text id="e7qv8p"
+PYPI: mk10-pro==1.0.3 — canonical runtime witness
+NPM: @kaaffilm/mk10-pro@1.0.3 — public registry discovery surface
+PKG: @kaaffilm/mk10-pro@1.0.3 — GitHub Packages surface
+````
+
+Final proof:
+
+```bash id="qoq59j"
+bash scripts/public-surface-proof.sh
+```
+
+No version raise is authorized to repair an immutable registry artifact.
+
+<!-- END MK10-PRO 1.0.3 COMPLETION LOCK -->
+
+
 <!-- MK10-PRO WITNESS RELEASE SURFACE -->
 ## Start here
 
@@ -222,3 +246,29 @@ If MK10‑PRO refuses a claim, the claim is invalid.
 
 There is no appeal to trust.
 There is only proof.
+
+<!-- MK10-PRO FINAL PUBLIC SURFACE COMPLETION LOCK -->
+## v1.0.3 final public surface completion lock
+
+MK10-PRO v1.0.3 is the completed public package surface.
+
+Public surfaces:
+
+| Surface | Status |
+| --- | --- |
+| PYPI | canonical runtime witness |
+| NPM | public registry discovery surface |
+| PKG | GitHub Packages package-surface mirror |
+
+Completion lock:
+
+```text
+1.0.3
+````
+
+Do not raise the public package version to repair an immutable registry artifact.
+
+PyPI remains the canonical runtime witness. NPM and PKG remain public package surfaces only.
+
+<!-- END MK10-PRO FINAL PUBLIC SURFACE COMPLETION LOCK -->
+
