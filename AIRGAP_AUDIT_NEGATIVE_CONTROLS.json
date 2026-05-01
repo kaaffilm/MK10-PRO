@@ -1,0 +1,59 @@
+{
+  "artifact": "MK10-PRO airgap audit negative controls",
+  "version": "1.0.3",
+  "lock": "AIRGAP_AUDIT_NEGATIVE_CONTROLS",
+  "claim": "The airgap audit bundle must reject local mutations that weaken offline replay, version immutability, required evidence files, workflow wiring, or forbidden network/package-install boundaries.",
+  "canonical_source": "repository checkout",
+  "target_lock": "AIRGAP_AUDIT_BUNDLE",
+  "target_script": "scripts/airgap-audit-bundle.sh",
+  "target_contract": "AIRGAP_AUDIT_BUNDLE.json",
+  "negative_controls_required": true,
+  "no_version_raise": true,
+  "version_boundary": {
+    "locked_version": "1.0.3",
+    "version_raise_allowed": false
+  },
+  "forbidden_after_checkout": [
+    "curl",
+    "wget",
+    "gh api",
+    "gh pr",
+    "git fetch",
+    "git pull",
+    "git clone",
+    "npm install",
+    "npm ci",
+    "pip install",
+    "python -m pip"
+  ],
+  "negative_cases": [
+    "airgap_contract_version_raised",
+    "npm_package_version_raised",
+    "pyproject_version_raised",
+    "airgap_contract_removed",
+    "airgap_script_removed",
+    "offline_lock_script_removed",
+    "workflow_run_removed",
+    "forbidden_curl_added",
+    "forbidden_git_fetch_added",
+    "forbidden_package_install_added"
+  ],
+  "positive_replay_required": true,
+  "public_package_surface": "witness only",
+  "network_after_checkout": "forbidden",
+  "registry_lookup_required": false,
+  "package_install_required": false,
+  "offline_replay_required": true,
+  "required_negative_controls": [
+    "airgap_contract_version_raised",
+    "npm_package_version_raised",
+    "pyproject_version_raised",
+    "airgap_contract_removed",
+    "airgap_script_removed",
+    "offline_lock_script_removed",
+    "workflow_run_removed",
+    "forbidden_curl_added",
+    "forbidden_git_fetch_added",
+    "forbidden_package_install_added"
+  ]
+}
