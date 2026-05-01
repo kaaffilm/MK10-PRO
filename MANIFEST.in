@@ -47,3 +47,7 @@ include scripts/audit-receipt-schema-proof.sh
 include AUDIT_RECEIPT_NEGATIVE_CASES.json
 include docs/AUDIT_RECEIPT_NEGATIVE_CONTROLS.md
 include scripts/audit-receipt-negative-proof.sh
+
+include EXTERNAL_AUDIT_GATE.json
+include docs/EXTERNAL_AUDIT_GATE.md
+include scripts/external-audit-gate.sh

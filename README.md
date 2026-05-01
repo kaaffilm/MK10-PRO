@@ -397,3 +397,14 @@ The audit receipt verifier must reject mutated receipts:
 Negative cases include version drift, witness drift, NPM canonicalization, failed proof-chain state, invalid hash binding, wrong source release, disabled no-version-raise rule, and claim-boundary expansion.
 
 <!-- END MK10-PRO AUDIT RECEIPT NEGATIVE CONTROLS -->
+
+<!-- MK10-PRO EXTERNAL AUDIT GATE -->
+## MK10-PRO v1.0.3 external audit gate
+
+Run the complete external audit surface from one command:
+
+    bash scripts/external-audit-gate.sh
+
+This executes the public surface lock, public replay perimeter, auditor replay entrypoint, external audit packet, audit receipt, audit receipt schema verifier, negative controls, targeted tests, and NPM surface verification.
+
+<!-- END MK10-PRO EXTERNAL AUDIT GATE -->

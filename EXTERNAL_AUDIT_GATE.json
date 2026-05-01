@@ -1,0 +1,36 @@
+{
+  "name": "MK10-PRO external audit gate",
+  "version": "1.0.3",
+  "locked_version": "1.0.3",
+  "canonical_runtime_witness": "pypi",
+  "no_version_raise": true,
+  "entrypoint": "scripts/external-audit-gate.sh",
+  "required_layers": [
+    "public_surface_lock",
+    "public_replay_perimeter",
+    "auditor_replay_entrypoint",
+    "external_audit_packet",
+    "audit_receipt",
+    "audit_receipt_schema",
+    "audit_receipt_negative_controls"
+  ],
+  "required_commands": [
+    "bash scripts/public-surface-proof.sh",
+    "bash scripts/public-replay-proof.sh",
+    "bash scripts/auditor-replay-proof.sh",
+    "bash scripts/audit-packet-proof.sh",
+    "bash scripts/audit-receipt-proof.sh",
+    "bash scripts/audit-receipt-schema-proof.sh",
+    "bash scripts/audit-receipt-negative-proof.sh",
+    "python3 -m pytest tests/test_public_surface_lock.py tests/test_public_replay_perimeter.py tests/test_auditor_entrypoint.py tests/test_audit_packet.py tests/test_audit_receipt.py tests/test_audit_receipt_schema.py tests/test_audit_receipt_negative_controls.py",
+    "cd packages/npm && npm test && npm pack --dry-run"
+  ],
+  "does_not_verify": [
+    "playback",
+    "device compatibility",
+    "venue certification",
+    "operator trustworthiness",
+    "post-delivery behavior",
+    "business outcome"
+  ]
+}
