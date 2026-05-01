@@ -1,0 +1,44 @@
+{
+  "artifact": "MK10-PRO airgap audit bundle",
+  "version": "1.0.3",
+  "lock": "AIRGAP_AUDIT_BUNDLE",
+  "claim": "The v1.0.3 audit perimeter is reconstructable from repository checkout using local files, deterministic scripts, and explicit public-surface witnesses without registry lookup, network fetch, or package installation after checkout.",
+  "canonical_source": "repository checkout",
+  "no_version_raise": true,
+  "network_after_checkout": "forbidden",
+  "registry_lookup_required": false,
+  "package_install_required": false,
+  "offline_replay_required": true,
+  "required_local_contracts": [
+    "OFFLINE_AUDIT_LOCK.json",
+    "EXTERNAL_AUDIT_GATE.json",
+    "AUDIT_RECEIPT_SCHEMA.json",
+    "AUDIT_RECEIPT_NEGATIVE_CASES.json"
+  ],
+  "required_entrypoints": [
+    "scripts/offline-audit-lock.sh",
+    "scripts/external-audit-gate.sh",
+    "scripts/audit-receipt-schema-proof.sh",
+    "scripts/audit-receipt-negative-proof.sh"
+  ],
+  "required_docs": [
+    "docs/OFFLINE_AUDIT_LOCK.md",
+    "docs/EXTERNAL_AUDIT_GATE.md",
+    "docs/AUDIT_RECEIPT_SCHEMA.md",
+    "docs/AUDIT_RECEIPT_NEGATIVE_CONTROLS.md"
+  ],
+  "forbidden_after_checkout": [
+    "curl",
+    "wget",
+    "gh api",
+    "gh pr",
+    "git fetch",
+    "git pull",
+    "git clone",
+    "npm install",
+    "npm ci",
+    "pip install",
+    "python -m pip"
+  ],
+  "public_package_surface": "witness only"
+}
