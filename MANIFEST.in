@@ -38,3 +38,8 @@ include scripts/audit-packet-proof.sh
 include AUDIT_RECEIPT_CONTRACT.json
 include docs/AUDIT_RECEIPT.md
 include scripts/audit-receipt-proof.sh
+
+include AUDIT_RECEIPT_SCHEMA.json
+include docs/AUDIT_RECEIPT_SCHEMA.md
+include scripts/verify-audit-receipt.cjs
+include scripts/audit-receipt-schema-proof.sh
