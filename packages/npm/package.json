@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "bin": {
-    "mk10-pro": "./bin/mk10-pro.js"
+    "mk10-pro": "bin/mk10-pro.js"
   },
   "files": [
     "bin/",
@@ -14,7 +14,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/kaaffilm/MK10-PRO"
+    "url": "git+https://github.com/kaaffilm/MK10-PRO.git",
+    "directory": "packages/npm"
   },
   "homepage": "https://github.com/kaaffilm/MK10-PRO#readme",
   "bugs": {
@@ -36,9 +37,10 @@
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "registry": "https://registry.npmjs.org/"
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "private": false
 }

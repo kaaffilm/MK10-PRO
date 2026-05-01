@@ -1,6 +1,11 @@
 {
   "name": "MK10-PRO",
   "version": "1.0.3",
+  "version_lock": {
+    "rule": "do_not_raise_public_package_version_to_repair_an_immutable_registry_artifact",
+    "locked_version": "1.0.3",
+    "canonical_runtime_witness": "pypi"
+  },
   "source_truth": {
     "kind": "github",
     "url": "https://github.com/kaaffilm/MK10-PRO",
@@ -10,22 +15,27 @@
   "package_surfaces": {
     "pypi": {
       "kind": "python",
+      "role": "canonical runtime witness",
       "package": "mk10-pro",
       "install": "pip install mk10-pro==1.0.3",
       "proof": "mk10 proof"
     },
     "npm": {
-      "kind": "node-launcher",
+      "kind": "npmjs registry discovery surface",
+      "role": "public package-page and discovery signal",
       "package": "@kaaffilm/mk10-pro",
-      "install": "npm install -g @kaaffilm/mk10-pro",
-      "proof": "npx @kaaffilm/mk10-pro proof"
+      "url": "https://www.npmjs.com/package/@kaaffilm/mk10-pro",
+      "proof": "npm view @kaaffilm/mk10-pro@1.0.3 version",
+      "runtime_boundary": "not_canonical_runtime_witness"
     },
     "pkg": {
-      "kind": "github-packages",
+      "kind": "github-packages registry surface",
+      "role": "GitHub Packages package-surface mirror",
       "package": "@kaaffilm/mk10-pro",
       "registry": "https://npm.pkg.github.com",
       "install": "npm install @kaaffilm/mk10-pro --registry=https://npm.pkg.github.com",
-      "proof": "npx @kaaffilm/mk10-pro proof"
+      "proof": "package registry visibility under GitHub Packages",
+      "runtime_boundary": "not_canonical_runtime_witness"
     }
   },
   "claim_boundary": {

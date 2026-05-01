@@ -5,7 +5,7 @@
 | Surface | Role | Command |
 | --- | --- | --- |
 | PYPI | Python install and canonical runtime witness | `pip install mk10-pro==1.0.3 && mk10 proof` |
-| NPM | JavaScript registry launcher surface | `npx @kaaffilm/mk10-pro surfaces` |
+| NPM | Public registry discovery surface | `npm view @kaaffilm/mk10-pro@1.0.3 version` |
 | PKG | GitHub Packages registry surface | `npm install @kaaffilm/mk10-pro --registry=https://npm.pkg.github.com` |
 
 Canonical runtime commands:
@@ -18,7 +18,7 @@ mk10 witness
 
 MK10-PRO has one source truth: GitHub `main` and signed releases.
 
-NPM and PKG are launcher/discovery surfaces. They do not reimplement MK10-PRO and do not expand its claim boundary.
+NPM and PKG are launcher/discovery surfaces, not canonical runtime witnesses. They do not reimplement MK10-PRO, do not expand its claim boundary, and do not authorize any version raise.
 
 <!-- END MK10-PRO PACKAGE SURFACES -->
 
@@ -41,6 +41,24 @@ Current source state:
 The existing PyPI 1.0.2 package is historical. PyPI 1.0.3 is the current published witness package. GitHub `main`, signed releases, and package boundary files define the maintained source state.
 
 <!-- END MK10-PRO PUBLIC PACKAGE BOUNDARY -->
+
+<!-- MK10-PRO NO VERSION RAISE LOCK -->
+## No-version-raise package lock
+
+MK10-PRO public package surfaces are locked at `1.0.3`.
+
+Do not raise the public package version to repair an immutable registry artifact.
+
+Canonical runtime proof remains:
+
+```bash
+pip install mk10-pro==1.0.3
+mk10 proof
+```
+
+NPM and PKG remain public package surfaces, but they are not the canonical runtime witness.
+
+<!-- END MK10-PRO NO VERSION RAISE LOCK -->
 
 <!-- MK10-PRO WITNESS RELEASE SURFACE -->
 ## Start here
