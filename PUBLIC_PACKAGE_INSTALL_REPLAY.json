@@ -1,0 +1,51 @@
+{
+  "artifact": "PUBLIC_PACKAGE_INSTALL_REPLAY",
+  "version": "1.0.3",
+  "status": "sealed",
+  "purpose": "Proves that the public v1.0.3 package surface can be packed, installed from a local tarball, and replayed without post-checkout network dependency.",
+  "package": {
+    "ecosystem": "npm",
+    "name": "@kaaffilm/mk10-pro",
+    "version": "1.0.3",
+    "source_dir": "packages/npm",
+    "bin": "mk10-pro",
+    "bin_path": "bin/mk10-pro.js",
+    "required_package_files": [
+      "package.json",
+      "README.md",
+      "PACKAGE_SURFACES.json",
+      "bin/mk10-pro.js"
+    ]
+  },
+  "requires": [
+    "PUBLIC_RELEASE_SEAL.json",
+    "RELEASE_INDEX.json",
+    "AIRGAP_AUDIT_RELEASE_GATE.json",
+    "scripts/public-release-seal.sh",
+    "scripts/airgap-audit-release-gate.sh"
+  ],
+  "network_boundary": {
+    "checkout": "allowed",
+    "package_replay_after_checkout": "forbidden",
+    "install_source": "local npm pack tarball only",
+    "registry": "blocked"
+  },
+  "proof": {
+    "script": "scripts/public-package-install-replay.sh",
+    "workflow": ".github/workflows/public-package-install-replay.yml",
+    "test": "tests/test_public_package_install_replay.py",
+    "receipt": "MK10_PRO_PUBLIC_PACKAGE_INSTALL_REPLAY_RECEIPT.json"
+  },
+  "negative_controls": [
+    "public_package_install_replay_removed",
+    "release_index_removed",
+    "public_release_seal_removed",
+    "release_gate_contract_removed",
+    "install_script_removed",
+    "workflow_removed",
+    "npm_package_version_raised",
+    "npm_bin_removed",
+    "npm_package_surface_removed",
+    "manifest_missing_public_package_install_replay"
+  ]
+}

@@ -76,3 +76,7 @@ include RELEASE_INDEX.json
 include docs/PUBLIC_RELEASE_SEAL.md
 include docs/RELEASE_INDEX.md
 include scripts/public-release-seal.sh
+include PUBLIC_PACKAGE_INSTALL_REPLAY.json
+include docs/PUBLIC_PACKAGE_INSTALL_REPLAY.md
+include scripts/public-package-install-replay.sh
+include tests/test_public_package_install_replay.py

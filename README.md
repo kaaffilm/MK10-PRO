@@ -478,3 +478,11 @@ Verify:
 
     bash scripts/public-release-seal.sh
 
+## Public package install replay
+
+MK10-PRO v1.0.3 includes a public package install replay boundary. The sealed npm surface is packed locally, installed into a clean consumer project from a local tarball, and verified with registry access blocked after checkout.
+
+- Contract: `PUBLIC_PACKAGE_INSTALL_REPLAY.json`
+- Proof: `scripts/public-package-install-replay.sh`
+- Workflow: `.github/workflows/public-package-install-replay.yml`
+
