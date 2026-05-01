@@ -1,0 +1,66 @@
+{
+  "release": "v1.0.3",
+  "package": "@kaaffilm/mk10-pro",
+  "package_version": "1.0.3",
+  "index_contract": "single public release entrypoint for offline audit discovery",
+  "canonical_public_surface": [
+    "README.md",
+    "PUBLIC_RELEASE_SEAL.json",
+    "RELEASE_INDEX.json",
+    "docs/PUBLIC_RELEASE_SEAL.md",
+    "docs/RELEASE_INDEX.md"
+  ],
+  "required_verifiers": [
+    {
+      "name": "offline audit lock",
+      "contract": "OFFLINE_AUDIT_LOCK.json",
+      "script": "scripts/offline-audit-lock.sh",
+      "workflow": ".github/workflows/offline-audit-lock.yml"
+    },
+    {
+      "name": "airgap audit bundle",
+      "contract": "AIRGAP_AUDIT_BUNDLE.json",
+      "script": "scripts/airgap-audit-bundle.sh",
+      "workflow": ".github/workflows/airgap-audit-bundle.yml"
+    },
+    {
+      "name": "airgap audit negative controls",
+      "contract": "AIRGAP_AUDIT_NEGATIVE_CONTROLS.json",
+      "script": "scripts/airgap-audit-negative-controls.sh",
+      "workflow": ".github/workflows/airgap-audit-negative-controls.yml"
+    },
+    {
+      "name": "airgap audit digest lock",
+      "contract": "AIRGAP_AUDIT_DIGEST_LOCK.json",
+      "script": "scripts/airgap-audit-digest-lock.sh",
+      "workflow": ".github/workflows/airgap-audit-digest-lock.yml"
+    },
+    {
+      "name": "airgap audit release gate",
+      "contract": "AIRGAP_AUDIT_RELEASE_GATE.json",
+      "script": "scripts/airgap-audit-release-gate.sh",
+      "workflow": ".github/workflows/airgap-audit-release-gate.yml"
+    },
+    {
+      "name": "public release seal",
+      "contract": "PUBLIC_RELEASE_SEAL.json",
+      "script": "scripts/public-release-seal.sh",
+      "workflow": ".github/workflows/public-release-seal.yml"
+    }
+  ],
+  "release_boundary": {
+    "package_mutation": "forbidden",
+    "feature_surface_mutation": "forbidden",
+    "version_raise": "forbidden",
+    "release_without_gate": "forbidden"
+  },
+  "required_files": [
+    "PUBLIC_RELEASE_SEAL.json",
+    "RELEASE_INDEX.json",
+    "docs/PUBLIC_RELEASE_SEAL.md",
+    "docs/RELEASE_INDEX.md",
+    "scripts/public-release-seal.sh",
+    ".github/workflows/public-release-seal.yml",
+    "tests/test_public_release_seal.py"
+  ]
+}

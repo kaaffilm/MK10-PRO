@@ -467,3 +467,14 @@ bash scripts/airgap-audit-release-gate.sh
 ```
 
 This gate replays the offline audit lock, airgap audit bundle, airgap audit negative controls, and airgap audit digest lock from repository checkout without requiring network fetch, registry lookup, or package installation.
+
+## MK10-PRO v1.0.3 public release seal
+
+MK10-PRO v1.0.3 is bound by PUBLIC_RELEASE_SEAL.json and RELEASE_INDEX.json.
+
+The public release seal is discovery and release-gate binding only. It does not mutate package behavior, feature surface, CLI flags, or package version.
+
+Verify:
+
+    bash scripts/public-release-seal.sh
+
