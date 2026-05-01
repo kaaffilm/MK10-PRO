@@ -24,3 +24,5 @@ recursive-include packages/npm/test *.mjs
 include PUBLIC_SURFACE.md
 include docs/PUBLIC_SURFACE_LOCK.md
 include scripts/public-surface-proof.sh
+include docs/PUBLIC_REPLAY_PERIMETER.md
+include scripts/public-replay-proof.sh

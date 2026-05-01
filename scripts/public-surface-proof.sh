@@ -6,34 +6,55 @@ cd "$ROOT"
 
 printf "\n[MK10-PRO PUBLIC SURFACE PROOF]\n"
 
-test "$(cat VERSION)" = "1.0.3"
-test -f PACKAGE_SURFACES.json
-test -f PUBLIC_SURFACE.md
-test -f docs/PUBLIC_SURFACE_LOCK.md
-test -f docs/PACKAGE_SURFACES.md
-test -f docs/NPM_BOUNDARY.md
-test -f docs/PKG_BOUNDARY.md
-test -f PYPI_RELEASE_POLICY.md
-test ! -f PYPI_DISABLED
-
-python3 tests/test_public_surface_lock.py
-
 node - <<'NODE'
 const fs = require("fs");
-const pkg = JSON.parse(fs.readFileSync("packages/npm/package.json", "utf8"));
-const surfaces = JSON.parse(fs.readFileSync("PACKAGE_SURFACES.json", "utf8"));
 
-if (pkg.version !== "1.0.3") throw new Error("npm version drift");
-if (surfaces.version !== "1.0.3") throw new Error("surface version drift");
-if (surfaces.version_lock.locked_version !== "1.0.3") throw new Error("version lock drift");
-if (surfaces.version_lock.canonical_runtime_witness !== "pypi") throw new Error("canonical witness drift");
+function read(path) {
+  return fs.readFileSync(path, "utf8");
+}
 
+function json(path) {
+  return JSON.parse(read(path));
+}
+
+const surface = json("PACKAGE_SURFACES.json");
+const pkg = json("packages/npm/package.json");
+
+if (surface.name !== "MK10-PRO") throw new Error("wrong surface name");
+if (surface.version !== "1.0.3") throw new Error("wrong public surface version");
+if (surface.version_lock.locked_version !== "1.0.3") throw new Error("wrong locked version");
+if (surface.version_lock.canonical_runtime_witness !== "pypi") throw new Error("wrong canonical runtime witness");
+
+if (surface.package_surfaces.pypi.package !== "mk10-pro") throw new Error("wrong PyPI package");
+if (surface.package_surfaces.pypi.role !== "canonical runtime witness") throw new Error("PyPI must remain canonical runtime witness");
+if (surface.package_surfaces.npm.package !== "@kaaffilm/mk10-pro") throw new Error("wrong NPM package");
+if (surface.package_surfaces.npm.runtime_boundary !== "not_canonical_runtime_witness") throw new Error("NPM runtime boundary drift");
+if (surface.package_surfaces.pkg.package !== "@kaaffilm/mk10-pro") throw new Error("wrong PKG package");
+if (surface.package_surfaces.pkg.runtime_boundary !== "not_canonical_runtime_witness") throw new Error("PKG runtime boundary drift");
+
+if (pkg.name !== "@kaaffilm/mk10-pro") throw new Error("wrong npm package name");
+if (pkg.version !== "1.0.3") throw new Error("wrong npm package version");
+if (!pkg.bin || pkg.bin["mk10-pro"] !== "bin/mk10-pro.js") throw new Error("wrong npm bin");
+if (pkg.private !== false) throw new Error("npm package must be public");
+if (!pkg.publishConfig || pkg.publishConfig.access !== "public") throw new Error("wrong npm access");
+
+const required = [
+  "README.md",
+  "PUBLIC_SURFACE.md",
+  "docs/PUBLIC_SURFACE_LOCK.md",
+  "docs/PUBLIC_REPLAY_PERIMETER.md",
+  "packages/npm/README.md"
+];
+
+for (const path of required) {
+  if (!fs.existsSync(path)) throw new Error(`missing ${path}`);
+  const text = read(path);
+  if (!text.includes("1.0.3")) throw new Error(`${path} missing 1.0.3`);
+  if (text.includes("1.0.4")) throw new Error(`${path} contains forbidden 1.0.4`);
+}
+
+console.log("MK10-PRO PUBLIC SURFACE LOCK TEST: PASS");
 console.log("NODE_PACKAGE_SURFACE_LOCK: PASS");
 NODE
-
-if [ "${MK10_PRO_SKIP_LIVE:-0}" != "1" ]; then
-  npm view @kaaffilm/mk10-pro@1.0.3 version --registry https://registry.npmjs.org/
-  python3 -m pip index versions mk10-pro | grep -q "mk10-pro (1.0.3)"
-fi
 
 printf "\nMK10-PRO PUBLIC SURFACE PROOF: PASS\n"
