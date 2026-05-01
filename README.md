@@ -272,3 +272,32 @@ PyPI remains the canonical runtime witness. NPM and PKG remain public package su
 
 <!-- END MK10-PRO FINAL PUBLIC SURFACE COMPLETION LOCK -->
 
+
+
+
+
+<!-- MK10-PRO PUBLIC REPLAY PERIMETER -->
+
+## MK10-PRO v1.0.3 public replay perimeter
+
+MK10-PRO v1.0.3 is complete only while the public replay perimeter stays locked to `1.0.3`.
+
+Replay surfaces:
+
+```text
+PYPI: mk10-pro==1.0.3 — canonical runtime witness
+NPM: @kaaffilm/mk10-pro@1.0.3 — public registry discovery surface
+PKG: @kaaffilm/mk10-pro@1.0.3 — GitHub Packages surface
+```
+
+Replay proof:
+
+```bash
+bash scripts/public-replay-proof.sh
+```
+
+No public package version may be raised to repair an immutable registry artifact.
+
+PyPI remains the canonical runtime witness. NPM and PKG remain public package surfaces only.
+
+<!-- END MK10-PRO PUBLIC REPLAY PERIMETER -->
