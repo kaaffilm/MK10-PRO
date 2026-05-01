@@ -1,13 +1,36 @@
+
 # MK10-PRO PKG Boundary
 
-`PKG` means GitHub Packages.
+PKG means the GitHub Packages registry surface.
 
-The GitHub Packages artifact is the same NPM launcher package published to GitHub's npm registry.
+Package:
 
-It exists so the GitHub repository has a registry-native package surface.
+```text
+@kaaffilm/mk10-pro
+```
 
-It does not replace PyPI.
+Registry:
 
-It does not replace GitHub source truth.
+```text
+https://npm.pkg.github.com
+```
+
+Version:
+
+```text
+1.0.3
+```
+
+## Role
+
+PKG is a GitHub Packages package-surface mirror.
+
+It is not the canonical runtime witness.
+
+It does not reimplement MK10-PRO.
 
 It does not expand MK10-PRO's claim boundary.
+
+## No-version-raise rule
+
+Do not raise the public package version to repair an immutable registry artifact.
