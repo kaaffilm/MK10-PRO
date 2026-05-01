@@ -21,3 +21,6 @@ include docs/PKG_BOUNDARY.md
 recursive-include packages/npm package.json README.md PACKAGE_SURFACES.json
 recursive-include packages/npm/bin *.js
 recursive-include packages/npm/test *.mjs
+include PUBLIC_SURFACE.md
+include docs/PUBLIC_SURFACE_LOCK.md
+include scripts/public-surface-proof.sh
