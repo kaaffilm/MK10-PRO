@@ -26,3 +26,7 @@ include docs/PUBLIC_SURFACE_LOCK.md
 include scripts/public-surface-proof.sh
 include docs/PUBLIC_REPLAY_PERIMETER.md
 include scripts/public-replay-proof.sh
+
+include AUDITOR_START_HERE.md
+include docs/AUDITOR_REPLAY.md
+include scripts/auditor-replay-proof.sh
