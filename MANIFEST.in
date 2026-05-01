@@ -51,3 +51,8 @@ include scripts/audit-receipt-negative-proof.sh
 include EXTERNAL_AUDIT_GATE.json
 include docs/EXTERNAL_AUDIT_GATE.md
 include scripts/external-audit-gate.sh
+include OFFLINE_AUDIT_LOCK.json
+include docs/OFFLINE_AUDIT_LOCK.md
+include scripts/offline-audit-lock.sh
+include tests/test_offline_audit_lock.py
+include .github/workflows/offline-audit-lock.yml

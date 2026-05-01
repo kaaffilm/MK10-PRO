@@ -1,0 +1,56 @@
+{
+  "artifact": "MK10-PRO offline audit lock",
+  "version": "1.0.3",
+  "lock": "OFFLINE_AUDIT_LOCK",
+  "claim": "After repository checkout, this verifier performs local/static audit checks without package installation, registry lookup, GitHub API access, or network fetch.",
+  "canonical_source": "repository checkout",
+  "npm_package_json": "packages/npm/package.json",
+  "npm_working_directory": "packages/npm",
+  "non_canonical_surfaces": [
+    "npm registry",
+    "PyPI registry",
+    "GitHub Actions live status",
+    "GitHub API",
+    "network package installers"
+  ],
+  "allowed_offline_runtime": [
+    "sh",
+    "bash",
+    "node standard library",
+    "python standard library",
+    "local filesystem"
+  ],
+  "forbidden_after_checkout": [
+    "curl",
+    "wget",
+    "gh api",
+    "gh pr",
+    "git fetch",
+    "git pull",
+    "git clone",
+    "npm install",
+    "npm ci",
+    "pip install",
+    "python -m pip"
+  ],
+  "required_layers": [
+    "public_surface_lock",
+    "public_replay_perimeter",
+    "auditor_replay_entrypoint",
+    "external_audit_packet",
+    "audit_receipt",
+    "audit_receipt_schema",
+    "audit_receipt_negative_controls",
+    "external_audit_gate"
+  ],
+  "version_boundary": {
+    "locked_version": "1.0.3",
+    "version_raise_allowed": false
+  },
+  "no_version_raise": true,
+  "network_after_checkout": "forbidden",
+  "registry_lookup_required": false,
+  "package_install_required": false,
+  "offline_replay_required": true,
+  "public_package_surface": "witness only"
+}
