@@ -80,3 +80,8 @@ include PUBLIC_PACKAGE_INSTALL_REPLAY.json
 include docs/PUBLIC_PACKAGE_INSTALL_REPLAY.md
 include scripts/public-package-install-replay.sh
 include tests/test_public_package_install_replay.py
+include PUBLIC_REGISTRY_RELEASE_READINESS.json
+include docs/PUBLIC_REGISTRY_RELEASE_READINESS.md
+include scripts/public-registry-release-readiness.sh
+include tests/test_public_registry_release_readiness.py
+include .github/workflows/public-registry-release-readiness.yml

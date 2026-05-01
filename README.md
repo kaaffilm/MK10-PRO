@@ -486,3 +486,14 @@ MK10-PRO v1.0.3 includes a public package install replay boundary. The sealed np
 - Proof: `scripts/public-package-install-replay.sh`
 - Workflow: `.github/workflows/public-package-install-replay.yml`
 
+## MK10-PRO v1.0.3 Public Registry Release Readiness
+
+The v1.0.3 public registry release readiness gate is captured by:
+
+- `PUBLIC_REGISTRY_RELEASE_READINESS.json`
+- `docs/PUBLIC_REGISTRY_RELEASE_READINESS.md`
+- `scripts/public-registry-release-readiness.sh`
+- `.github/workflows/public-registry-release-readiness.yml`
+- `tests/test_public_registry_release_readiness.py`
+
+This gate verifies that the public release seal and public package install replay remain present before registry-facing release activity.
