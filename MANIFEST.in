@@ -30,3 +30,7 @@ include scripts/public-replay-proof.sh
 include AUDITOR_START_HERE.md
 include docs/AUDITOR_REPLAY.md
 include scripts/auditor-replay-proof.sh
+
+include AUDIT_PACKET.md
+include docs/AUDIT_PACKET.md
+include scripts/audit-packet-proof.sh

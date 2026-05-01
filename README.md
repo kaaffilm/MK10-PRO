@@ -329,3 +329,23 @@ See:
 
 <!-- END MK10-PRO AUDITOR ENTRYPOINT -->
 
+
+<!-- MK10-PRO EXTERNAL AUDIT PACKET -->
+## MK10-PRO v1.0.3 external audit packet
+
+External auditor entrypoint:
+
+    bash scripts/audit-packet-proof.sh
+
+This verifies:
+
+- public surface lock
+- public replay perimeter
+- auditor replay entrypoint
+- no-version-raise rule
+- PyPI canonical runtime witness
+- NPM / PKG public surface boundary
+
+The audit packet does not expand the claim boundary.
+
+<!-- END MK10-PRO EXTERNAL AUDIT PACKET -->
