@@ -553,3 +553,12 @@ The remote outsider final replay witness binds the finality index seal to a publ
 ```bash
 REMOTE_OUTSIDER_LIVE_REPLAY=1 bash scripts/public-registry-install-replay-remote-outsider-final-replay-witness.sh
 ```
+
+
+### MK10-PRO v1.0.3 Public Registry Install Replay — Terminal Closure Index
+
+The terminal closure index binds the v1.0.3 public registry install replay chain after the remote outsider final replay witness seal.
+
+`bash
+TERMINAL_CLOSURE_LIVE_REPLAY=1 bash scripts/public-registry-install-replay-terminal-closure-index.sh
+`
