@@ -545,3 +545,11 @@ The v1.0.3 public registry install replay now has a repo-local finality index bi
 - Contract: `PUBLIC_REGISTRY_INSTALL_REPLAY_FINALITY_INDEX.json`
 - Replay: `scripts/public-registry-install-replay-finality-index.sh`
 - Witness: `docs/PUBLIC_REGISTRY_INSTALL_REPLAY_FINALITY_INDEX.md`
+
+### MK10-PRO v1.0.3 Public Registry Install Replay — Remote Outsider Final Replay Witness
+
+The remote outsider final replay witness binds the finality index seal to a public clean-clone replay from `mk10-pro-v1.0.3-public-registry-install-replay-finality-index-seal`.
+
+```bash
+REMOTE_OUTSIDER_LIVE_REPLAY=1 bash scripts/public-registry-install-replay-remote-outsider-final-replay-witness.sh
+```

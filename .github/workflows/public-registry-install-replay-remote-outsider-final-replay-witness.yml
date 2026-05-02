@@ -1,0 +1,56 @@
+name: public-registry-install-replay-remote-outsider-final-replay-witness
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  public-registry-install-replay-remote-outsider-final-replay-witness:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch tags
+        run: git fetch origin --tags --force
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Static witness replay
+        run: |
+          RECEIPT_PATH="$RUNNER_TEMP/remote-outsider-final-replay-witness-receipt.json" \
+            bash scripts/public-registry-install-replay-remote-outsider-final-replay-witness.sh
+
+      - name: Pytest witness surface
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+          python -m pytest tests/test_public_registry_install_replay_remote_outsider_final_replay_witness.py
+
+      - name: Live remote outsider replay
+        run: |
+          RECEIPT_PATH="$RUNNER_TEMP/remote-outsider-final-replay-witness-live-receipt.json" \
+          REMOTE_OUTSIDER_LIVE_REPLAY=1 \
+            bash scripts/public-registry-install-replay-remote-outsider-final-replay-witness.sh
+
+      - name: Assert no generated root receipts remain
+        run: |
+          rm -f \
+            MK10_PRO_PUBLIC_REGISTRY_INSTALL_REPLAY_REMOTE_OUTSIDER_FINAL_REPLAY_WITNESS_RECEIPT.json \
+            MK10_PRO_PUBLIC_REGISTRY_INSTALL_REPLAY_FINALITY_INDEX_RECEIPT.json \
+            MK10_PRO_PUBLIC_REGISTRY_ARTIFACT_LOCK_RECEIPT.json \
+            MK10_PRO_PUBLIC_REGISTRY_INSTALL_REPLAY_RECEIPT.json \
+            MK10_PRO_PUBLIC_REGISTRY_RELEASE_READINESS_RECEIPT.json \
+            MK10_PRO_PUBLIC_PACKAGE_INSTALL_REPLAY_RECEIPT.json \
+            MK10_PRO_PUBLIC_RELEASE_SEAL_RECEIPT.json
+          test -z "$(git status --porcelain --untracked-files=all)"
