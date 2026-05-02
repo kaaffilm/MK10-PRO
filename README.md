@@ -514,3 +514,16 @@ bash scripts/public-registry-artifact-lock.sh
 The v1.0.3 public registry artifact lock records the already-published npm artifact metadata for `@kaaffilm/mk10-pro@1.0.3`, including registry integrity, shasum, and tarball identity.
 
 <!-- END MK10-PRO 1.0.3 PUBLIC REGISTRY ARTIFACT LOCK -->
+
+## MK10-PRO v1.0.3 Public Registry Install Replay
+
+MK10-PRO v1.0.3 includes a public registry install replay layer.
+
+A clean external npm consumer installs `@kaaffilm/mk10-pro@1.0.3` directly from the public npm registry and verifies the installed package-lock integrity and tarball against `PUBLIC_REGISTRY_ARTIFACT_LOCK.json`.
+
+Run:
+
+```bash
+bash scripts/public-registry-install-replay.sh
+````
+

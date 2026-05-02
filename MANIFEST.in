@@ -89,3 +89,8 @@ include PUBLIC_REGISTRY_ARTIFACT_LOCK.json
 include docs/PUBLIC_REGISTRY_ARTIFACT_LOCK.md
 include scripts/public-registry-artifact-lock.sh
 include .github/workflows/public-registry-artifact-lock.yml
+include PUBLIC_REGISTRY_INSTALL_REPLAY.json
+include docs/PUBLIC_REGISTRY_INSTALL_REPLAY.md
+include scripts/public-registry-install-replay.sh
+include tests/test_public_registry_install_replay.py
+include .github/workflows/public-registry-install-replay.yml
