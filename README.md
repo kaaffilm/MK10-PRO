@@ -527,3 +527,13 @@ Run:
 bash scripts/public-registry-install-replay.sh
 ````
 
+
+### MK10-PRO v1.0.3 public registry install replay release object seal
+
+The public registry install replay seal is bound into git history by `PUBLIC_REGISTRY_INSTALL_REPLAY_RELEASE_OBJECT_SEAL.json`.
+
+Replay:
+
+```bash
+bash scripts/public-registry-install-replay-release-object-seal.sh
+```

@@ -1,0 +1,18 @@
+{
+  "admissibility": "MK10-PRO v1.0.3 public registry install replay release object seal",
+  "contract_version": "1.0.3",
+  "repo": "kaaffilm/MK10-PRO",
+  "package": "@kaaffilm/mk10-pro",
+  "package_version": "1.0.3",
+  "source_pr": "https://github.com/kaaffilm/MK10-PRO/pull/33",
+  "merged_main_head": "3174f958c45944b9c929f5a945532cac9f772edb",
+  "version_tag": "v1.0.3",
+  "version_tag_target": "d914996fc84c5370cfba57ee578ea0a06f74d7f3",
+  "seal_tag": "mk10-pro-v1.0.3-public-registry-install-replay-seal",
+  "seal_tag_target": "3174f958c45944b9c929f5a945532cac9f772edb",
+  "release_url": "https://github.com/kaaffilm/MK10-PRO/releases/tag/mk10-pro-v1.0.3-public-registry-install-replay-seal",
+  "npm_integrity": "sha512-1tfocHCucwMzlQ4IABjPNVSgg+mQszlr7F6C9qgVPLqBZk96g/cP8SoZMMXsg++OFqHLoBohU5JYrSC0ER8WpQ==",
+  "npm_shasum": "6a07a514bfcd91bb434314798334e5fb19959dfb",
+  "npm_tarball": "https://registry.npmjs.org/@kaaffilm/mk10-pro/-/mk10-pro-1.0.3.tgz",
+  "release_object_mutability_note": "The GitHub release object is verified but not treated as immutable; this git witness binds it to the seal tag, merged head, and public npm artifact digest."
+}
