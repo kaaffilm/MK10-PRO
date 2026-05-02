@@ -1,0 +1,18 @@
+name: public-registry-release-readiness
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  public-registry-release-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Verify public registry release readiness
+        run: bash scripts/public-registry-release-readiness.sh

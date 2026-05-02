@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "boundary": "PUBLIC_REGISTRY_RELEASE_READINESS",
+  "project": "MK10-PRO",
+  "version": "1.0.3",
+  "package": {
+    "ecosystem": "npm",
+    "name": "@kaaffilm/mk10-pro",
+    "version": "1.0.3",
+    "publish_mode": "dry_run_only",
+    "registry_write_allowed": false
+  },
+  "depends_on": [
+    "PUBLIC_PACKAGE_INSTALL_REPLAY.json",
+    "PUBLIC_RELEASE_SEAL.json",
+    "RELEASE_INDEX.json",
+    "AIRGAP_AUDIT_RELEASE_GATE.json"
+  ],
+  "required_files": [
+    "PUBLIC_REGISTRY_RELEASE_READINESS.json",
+    "PUBLIC_PACKAGE_INSTALL_REPLAY.json",
+    "PUBLIC_RELEASE_SEAL.json",
+    "RELEASE_INDEX.json",
+    "packages/npm/package.json",
+    "packages/npm/PACKAGE_SURFACES.json",
+    "scripts/public-registry-release-readiness.sh",
+    "scripts/public-package-install-replay.sh",
+    ".github/workflows/public-registry-release-readiness.yml",
+    "docs/PUBLIC_REGISTRY_RELEASE_READINESS.md"
+  ],
+  "required_checks": [
+    "package_version_lock",
+    "release_seal_dependency",
+    "install_replay_dependency",
+    "npm_pack_dry_run",
+    "npm_publish_dry_run",
+    "no_registry_write",
+    "manifest_inclusion",
+    "negative_controls"
+  ]
+}
