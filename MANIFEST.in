@@ -94,3 +94,7 @@ include docs/PUBLIC_REGISTRY_INSTALL_REPLAY.md
 include scripts/public-registry-install-replay.sh
 include tests/test_public_registry_install_replay.py
 include .github/workflows/public-registry-install-replay.yml
+include PUBLIC_REGISTRY_INSTALL_REPLAY_REMOTE_OUTSIDER_FINAL_REPLAY_WITNESS.json
+include docs/PUBLIC_REGISTRY_INSTALL_REPLAY_REMOTE_OUTSIDER_FINAL_REPLAY_WITNESS.md
+include scripts/public-registry-install-replay-remote-outsider-final-replay-witness.sh
+include tests/test_public_registry_install_replay_remote_outsider_final_replay_witness.py
