@@ -85,3 +85,7 @@ include docs/PUBLIC_REGISTRY_RELEASE_READINESS.md
 include scripts/public-registry-release-readiness.sh
 include tests/test_public_registry_release_readiness.py
 include .github/workflows/public-registry-release-readiness.yml
+include PUBLIC_REGISTRY_ARTIFACT_LOCK.json
+include docs/PUBLIC_REGISTRY_ARTIFACT_LOCK.md
+include scripts/public-registry-artifact-lock.sh
+include .github/workflows/public-registry-artifact-lock.yml

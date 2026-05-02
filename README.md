@@ -497,3 +497,20 @@ The v1.0.3 public registry release readiness gate is captured by:
 - `tests/test_public_registry_release_readiness.py`
 
 This gate verifies that the public release seal and public package install replay remain present before registry-facing release activity.
+
+## MK10-PRO v1.0.3 Public Registry Artifact Lock
+
+The v1.0.3 public registry artifact lock records the already-published npm artifact metadata for `@kaaffilm/mk10-pro@1.0.3`, including registry integrity, shasum, and tarball identity.
+
+Verify:
+
+```bash
+bash scripts/public-registry-artifact-lock.sh
+````
+
+<!-- MK10-PRO 1.0.3 PUBLIC REGISTRY ARTIFACT LOCK -->
+## MK10-PRO v1.0.3 Public Registry Artifact Lock
+
+The v1.0.3 public registry artifact lock records the already-published npm artifact metadata for `@kaaffilm/mk10-pro@1.0.3`, including registry integrity, shasum, and tarball identity.
+
+<!-- END MK10-PRO 1.0.3 PUBLIC REGISTRY ARTIFACT LOCK -->
