@@ -1,0 +1,23 @@
+{
+  "artifact": "MK10-PRO v1.0.3 public registry install replay finality index",
+  "version": "1.0.3",
+  "package": "@kaaffilm/mk10-pro",
+  "repository": "kaaffilm/MK10-PRO",
+  "version_tag": "v1.0.3",
+  "version_tag_target": "d914996fc84c5370cfba57ee578ea0a06f74d7f3",
+  "base_seal_tag": "mk10-pro-v1.0.3-public-registry-install-replay-seal",
+  "base_seal_target": "3174f958c45944b9c929f5a945532cac9f772edb",
+  "release_object_git_witness_tag": "mk10-pro-v1.0.3-public-registry-install-replay-release-object-git-witness-seal",
+  "release_object_git_witness_target": "f5a5f1a31482f165267520d4f4ba19423c00cd3b",
+  "npm_integrity": "sha512-1tfocHCucwMzlQ4IABjPNVSgg+mQszlr7F6C9qgVPLqBZk96g/cP8SoZMMXsg++OFqHLoBohU5JYrSC0ER8WpQ==",
+  "npm_shasum": "6a07a514bfcd91bb434314798334e5fb19959dfb",
+  "npm_tarball": "https://registry.npmjs.org/@kaaffilm/mk10-pro/-/mk10-pro-1.0.3.tgz",
+  "admissibility": "repo-only finality index over public npm artifact, base seal, release object, and git witness",
+  "forbidden_actions": [
+    "npm publish",
+    "tag mutation",
+    "release mutation",
+    "package mutation",
+    "registry write"
+  ]
+}

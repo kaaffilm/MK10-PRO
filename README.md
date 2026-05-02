@@ -537,3 +537,11 @@ Replay:
 ```bash
 bash scripts/public-registry-install-replay-release-object-seal.sh
 ```
+
+## MK10-PRO v1.0.3 public registry install replay finality index
+
+The v1.0.3 public registry install replay now has a repo-local finality index binding the original version tag, public registry install replay seal, release object git witness seal, and public npm artifact.
+
+- Contract: `PUBLIC_REGISTRY_INSTALL_REPLAY_FINALITY_INDEX.json`
+- Replay: `scripts/public-registry-install-replay-finality-index.sh`
+- Witness: `docs/PUBLIC_REGISTRY_INSTALL_REPLAY_FINALITY_INDEX.md`
