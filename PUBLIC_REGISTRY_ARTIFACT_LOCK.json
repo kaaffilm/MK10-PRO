@@ -1,0 +1,37 @@
+{
+  "artifact_lock": "MK10-PRO v1.0.3 public registry artifact lock",
+  "version": "1.0.3",
+  "registry_package": "@kaaffilm/mk10-pro",
+  "registry_version": "1.0.3",
+  "registry_integrity": "sha512-1tfocHCucwMzlQ4IABjPNVSgg+mQszlr7F6C9qgVPLqBZk96g/cP8SoZMMXsg++OFqHLoBohU5JYrSC0ER8WpQ==",
+  "registry_shasum": "6a07a514bfcd91bb434314798334e5fb19959dfb",
+  "registry_tarball": "https://registry.npmjs.org/@kaaffilm/mk10-pro/-/mk10-pro-1.0.3.tgz",
+  "published_at": "2026-04-30T23:46:28.374Z",
+  "chain": {
+    "registry_readiness": "PUBLIC_REGISTRY_RELEASE_READINESS.json",
+    "package_install_replay": "PUBLIC_PACKAGE_INSTALL_REPLAY.json",
+    "public_release_seal": "PUBLIC_RELEASE_SEAL.json",
+    "airgap_release_gate": "AIRGAP_AUDIT_RELEASE_GATE.json"
+  },
+  "boundary": {
+    "already_published_version": true,
+    "no_version_raise": true,
+    "registry_artifact_identity_locked": true
+  },
+  "required_files": [
+    "PUBLIC_REGISTRY_ARTIFACT_LOCK.json",
+    "PUBLIC_REGISTRY_RELEASE_READINESS.json",
+    "PUBLIC_PACKAGE_INSTALL_REPLAY.json",
+    "PUBLIC_RELEASE_SEAL.json",
+    "AIRGAP_AUDIT_RELEASE_GATE.json",
+    "PACKAGE_SURFACES.json",
+    "packages/npm/package.json",
+    "packages/npm/PACKAGE_SURFACES.json",
+    "docs/PUBLIC_REGISTRY_ARTIFACT_LOCK.md",
+    "scripts/public-registry-artifact-lock.sh",
+    ".github/workflows/public-registry-artifact-lock.yml",
+    "tests/test_public_registry_artifact_lock.py",
+    "README.md",
+    "MANIFEST.in"
+  ]
+}

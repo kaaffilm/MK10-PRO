@@ -1,0 +1,18 @@
+name: public-registry-artifact-lock
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  public-registry-artifact-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Verify MK10-PRO v1.0.3 public registry artifact lock
+        run: bash scripts/public-registry-artifact-lock.sh
