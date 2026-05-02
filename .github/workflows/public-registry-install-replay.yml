@@ -1,0 +1,42 @@
+name: public-registry-install-replay
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-registry-install-replay:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Verify MK10-PRO v1.0.3 public registry install replay
+        run: |
+          bash scripts/public-registry-install-replay.sh
+          rm -f \
+            MK10_PRO_PUBLIC_REGISTRY_INSTALL_REPLAY_RECEIPT.json \
+            MK10_PRO_PUBLIC_REGISTRY_ARTIFACT_LOCK_RECEIPT.json \
+            MK10_PRO_PUBLIC_REGISTRY_RELEASE_READINESS_RECEIPT.json \
+            MK10_PRO_PUBLIC_PACKAGE_INSTALL_REPLAY_RECEIPT.json \
+            MK10_PRO_PUBLIC_RELEASE_SEAL_RECEIPT.json
+
+      - name: Assert no generated root receipts remain
+        run: |
+          test ! -f MK10_PRO_PUBLIC_REGISTRY_INSTALL_REPLAY_RECEIPT.json
+          test ! -f MK10_PRO_PUBLIC_REGISTRY_ARTIFACT_LOCK_RECEIPT.json
+          test ! -f MK10_PRO_PUBLIC_REGISTRY_RELEASE_READINESS_RECEIPT.json
+          test ! -f MK10_PRO_PUBLIC_PACKAGE_INSTALL_REPLAY_RECEIPT.json
+          test ! -f MK10_PRO_PUBLIC_RELEASE_SEAL_RECEIPT.json

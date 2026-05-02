@@ -1,0 +1,27 @@
+{
+  "replay": "MK10-PRO v1.0.3 public registry install replay",
+  "version": "1.0.3",
+  "package": "@kaaffilm/mk10-pro",
+  "registry": "https://registry.npmjs.org",
+  "install_spec": "@kaaffilm/mk10-pro@1.0.3",
+  "claim": "A clean outside npm consumer can install the already-published public registry artifact and verify it against the locked registry metadata without using a local tarball.",
+  "artifact_lock": {
+    "file": "PUBLIC_REGISTRY_ARTIFACT_LOCK.json",
+    "registry_integrity": "sha512-1tfocHCucwMzlQ4IABjPNVSgg+mQszlr7F6C9qgVPLqBZk96g/cP8SoZMMXsg++OFqHLoBohU5JYrSC0ER8WpQ==",
+    "registry_shasum": "6a07a514bfcd91bb434314798334e5fb19959dfb",
+    "registry_tarball": "https://registry.npmjs.org/@kaaffilm/mk10-pro/-/mk10-pro-1.0.3.tgz"
+  },
+  "required_chain": [
+    "PUBLIC_REGISTRY_ARTIFACT_LOCK.json",
+    "PUBLIC_REGISTRY_RELEASE_READINESS.json",
+    "PUBLIC_PACKAGE_INSTALL_REPLAY.json",
+    "PUBLIC_RELEASE_SEAL.json",
+    "RELEASE_INDEX.json"
+  ],
+  "admissibility": {
+    "no_version_raise": true,
+    "no_local_tarball_substitution": true,
+    "clean_consumer_install_required": true,
+    "installed_package_lock_must_match_registry_artifact_lock": true
+  }
+}
