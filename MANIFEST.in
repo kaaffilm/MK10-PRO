@@ -94,6 +94,3 @@ include docs/PUBLIC_REGISTRY_INSTALL_REPLAY.md
 include scripts/public-registry-install-replay.sh
 include tests/test_public_registry_install_replay.py
 include .github/workflows/public-registry-install-replay.yml
-include PUBLIC_REGISTRY_INSTALL_REPLAY_RELEASE_OBJECT_SEAL.json
-include docs/PUBLIC_REGISTRY_INSTALL_REPLAY_RELEASE_OBJECT_SEAL.md
-include scripts/public-registry-install-replay-release-object-seal.sh

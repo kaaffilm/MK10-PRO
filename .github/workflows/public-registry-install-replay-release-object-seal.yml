@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,15 +15,34 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      MK10_PRO_LIVE_WITNESS_ASSERT: "1"
 
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: "20"
 
       - name: Verify MK10-PRO v1.0.3 public registry install replay release object seal
         run: |
           bash scripts/public-registry-install-replay-release-object-seal.sh
+
+      - name: Clean generated root receipts
+        run: |
+          rm -f \
+            MK10_PRO_PUBLIC_REGISTRY_ARTIFACT_LOCK_RECEIPT.json \
+            MK10_PRO_PUBLIC_REGISTRY_INSTALL_REPLAY_RECEIPT.json \
+            MK10_PRO_PUBLIC_REGISTRY_RELEASE_READINESS_RECEIPT.json \
+            MK10_PRO_PUBLIC_PACKAGE_INSTALL_REPLAY_RECEIPT.json \
+            MK10_PRO_PUBLIC_RELEASE_SEAL_RECEIPT.json
+
+      - name: Assert no generated root receipts remain
+        run: |
+          test ! -e MK10_PRO_PUBLIC_REGISTRY_ARTIFACT_LOCK_RECEIPT.json
+          test ! -e MK10_PRO_PUBLIC_REGISTRY_INSTALL_REPLAY_RECEIPT.json
+          test ! -e MK10_PRO_PUBLIC_REGISTRY_RELEASE_READINESS_RECEIPT.json
+          test ! -e MK10_PRO_PUBLIC_PACKAGE_INSTALL_REPLAY_RECEIPT.json
+          test ! -e MK10_PRO_PUBLIC_RELEASE_SEAL_RECEIPT.json
