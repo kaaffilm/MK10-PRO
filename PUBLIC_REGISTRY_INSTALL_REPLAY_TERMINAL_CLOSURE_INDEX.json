@@ -1,0 +1,43 @@
+{
+  "schema_version": "mk10-pro.public_registry_install_replay.terminal_closure_index.v1",
+  "package": "@kaaffilm/mk10-pro",
+  "version": "1.0.3",
+  "public_registry_package": "@kaaffilm/mk10-pro@1.0.3",
+  "repo": "kaaffilm/MK10-PRO",
+  "closure_kind": "terminal_public_registry_install_replay_index",
+  "terminal_status": "closed_by_remote_outsider_final_replay_witness",
+  "version_tag": "v1.0.3",
+  "version_target": "d914996fc84c5370cfba57ee578ea0a06f74d7f3",
+  "base_replay_seal_tag": "mk10-pro-v1.0.3-public-registry-install-replay-seal",
+  "base_replay_seal_target": "3174f958c45944b9c929f5a945532cac9f772edb",
+  "release_object_git_witness_tag": "mk10-pro-v1.0.3-public-registry-install-replay-release-object-git-witness-seal",
+  "release_object_git_witness_target": "f5a5f1a31482f165267520d4f4ba19423c00cd3b",
+  "finality_index_tag": "mk10-pro-v1.0.3-public-registry-install-replay-finality-index-seal",
+  "finality_index_target": "420dce9d3c0b144117bfc8c0eee0b02a257939fd",
+  "remote_outsider_final_replay_witness_tag": "mk10-pro-v1.0.3-public-registry-install-replay-remote-outsider-final-replay-witness-seal",
+  "remote_outsider_final_replay_witness_target": "d83fa319b82c902d06582eef73589f7c4c9350fd",
+  "npm_integrity": "sha512-1tfocHCucwMzlQ4IABjPNVSgg+mQszlr7F6C9qgVPLqBZk96g/cP8SoZMMXsg++OFqHLoBohU5JYrSC0ER8WpQ==",
+  "npm_shasum": "6a07a514bfcd91bb434314798334e5fb19959dfb",
+  "npm_tarball": "https://registry.npmjs.org/@kaaffilm/mk10-pro/-/mk10-pro-1.0.3.tgz",
+  "merged_prs": {
+    "public_registry_install_replay": 33,
+    "release_object_git_witness": 34,
+    "finality_index": 37,
+    "remote_outsider_final_replay_witness": 38
+  },
+  "admissibility": [
+    "public package installed from npm registry",
+    "registry artifact lock verified",
+    "release object sealed",
+    "finality index sealed",
+    "remote outsider clean clone replay verified",
+    "no founder workspace dependency remains"
+  ],
+  "mutation_boundary": {
+    "repository_mutation": false,
+    "package_registry_mutation": false,
+    "release_mutation": false,
+    "tag_rewrite": false,
+    "publish_rerun": false
+  }
+}
