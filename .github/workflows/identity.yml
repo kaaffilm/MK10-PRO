@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   verify:
+    name: Identity
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
